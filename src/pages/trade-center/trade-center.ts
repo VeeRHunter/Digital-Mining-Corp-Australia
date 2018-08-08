@@ -76,11 +76,12 @@ export class TradeCenterPage {
   focusOnEquityValue() {
     console.log("Focus On");
     // let itemTop = inputEquity._elementRef.nativeElement.getBoundingClientRect().top;
-    // let itemTop = document.getElementById('inputEquity').offsetTop;
-    // let itemPositionY = this.content.getContentDimensions().scrollTop - itemTop;
-    // console.log(itemTop);
-    // console.log(itemPositionY);
-    // this.content.scrollTo(null, itemPositionY, 500);
+    let itemTop = document.getElementById('inputEquity').offsetTop;
+    let itemPositionY = this.content.getContentDimensions().scrollTop + itemTop;
+    console.log(itemTop);
+    console.log(itemPositionY);
+    this.content.scrollTo(null, itemPositionY, 500);
+    this.showEditEquityValue = true;
   }
 
   focusOutEquityValue() {
@@ -89,7 +90,6 @@ export class TradeCenterPage {
   }
 
   checkEquityValue() {
-    this.showEditEquityValue = false;
   }
 
   openEditValue() {

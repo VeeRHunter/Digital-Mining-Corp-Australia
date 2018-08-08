@@ -144,7 +144,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-row class="trade-detail">
+  <ion-row class="trade-detail" id="inputEquity" >
     <ion-col col-6>
       <ion-row class="full-height">
         <span>
@@ -153,27 +153,12 @@
       </ion-row>
     </ion-col>
     <ion-col col-6>
-      <ion-row class="full-height" *ngIf="showEditEquityValue">
-        <ion-col col-12>
-          <ion-row class="full-height">
-            <mat-form-field class="right-element">
-              <input type="number" id="inputEquity" (focus)="focusOnEquityValue()" (focusout)="focusOutEquityValue()" [(ngModel)]="equitySwapValue"
-                matInput>
-              <!-- <span matPrefix>$</span> -->
-            </mat-form-field>
-          </ion-row>
-        </ion-col>
-        <!-- <ion-col col-2>
-          <ion-row class="full-height">
-            <ion-icon name="md-checkmark-circle" (click)="checkEquityValue()"></ion-icon>
-          </ion-row>
-        </ion-col> -->
-      </ion-row>
-
-      <ion-row class="full-height" *ngIf="!showEditEquityValue">
-        <span class="right-element" (click)="openEditValue()">
-          ${{equitySwapValue}}
-        </span>
+      <ion-row [ngClass]="{'edit-equity': showEditEquityValue, 'show-equity': !showEditEquityValue}">
+        <mat-form-field>
+          <span matPrefix>$</span>
+          <input type="number" (focus)="focusOnEquityValue()" (focusout)="focusOutEquityValue()" [(ngModel)]="equitySwapValue"
+            matInput>
+        </mat-form-field>
       </ion-row>
     </ion-col>
   </ion-row>
@@ -188,7 +173,7 @@
     </ion-col>
     <ion-col col-6>
       <ion-row class="full-height">
-        <span class="right-element">{{equityPercent}}</span>
+        <span class="">{{equityPercent}}</span>
       </ion-row>
     </ion-col>
   </ion-row>

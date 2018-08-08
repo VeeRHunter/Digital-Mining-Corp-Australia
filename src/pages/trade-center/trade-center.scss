@@ -106,6 +106,13 @@ page-trade-center {
         ion-icon {
             color: #71b15c;
         }
+        .edit-equity{
+            height: 100%;
+            border-bottom: 2px solid blue;
+        }
+        .show-equity{
+            height: 100%;
+        }
     }
     .confirm-part {
         margin-top: 10px;

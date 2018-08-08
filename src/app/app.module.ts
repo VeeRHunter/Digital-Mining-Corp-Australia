@@ -37,6 +37,7 @@ import { SignupPage } from '../pages/signup/signup';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { SettingPage } from '../pages/setting/setting';
 import { TradeCenterPage } from '../pages/trade-center/trade-center';
+import { InitialLoginPage } from '../pages/initial-login/initial-login';
 
 
 
@@ -54,6 +55,7 @@ import { TradeCenterPage } from '../pages/trade-center/trade-center';
     MainPage,
     SettingPage,
     TradeCenterPage,
+    InitialLoginPage,
   ],
   imports: [
     BrowserModule,
@@ -76,6 +78,7 @@ import { TradeCenterPage } from '../pages/trade-center/trade-center';
     MainPage,
     SettingPage,
     TradeCenterPage,
+    InitialLoginPage,
   ],
   providers: [
     StatusBar,

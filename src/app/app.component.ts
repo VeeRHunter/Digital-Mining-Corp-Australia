@@ -14,12 +14,13 @@ import { AccountPage } from '../pages/account/account';
 import { SmsfPage } from '../pages/smsf/smsf';
 import { EascrowPage } from '../pages/eascrow/eascrow';
 import { TradeCenterPage } from '../pages/trade-center/trade-center';
+import { InitialLoginPage } from '../pages/initial-login/initial-login';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = LoginPage;
+  rootPage: any = InitialLoginPage;
 
   public pages: Array<{ title: string, component: any, image: string }>;
   public bottom_pages: Array<{ title: string, component: any, image: string }>;

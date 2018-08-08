@@ -41,7 +41,7 @@
       </mat-form-field>
     </ion-row>
 
-    <ion-row class="user-input-row">
+    <ion-row class="user-input-row user-password-row">
       <mat-form-field class="example-full-width">
         <input matInput type="password" placeholder="Password" [(ngModel)]="userData.password" required name="password">
         <mat-error>
@@ -50,24 +50,30 @@
       </mat-form-field>
     </ion-row>
 
-    <ion-row class="signup-row">
-      <button mat-raised-button class="signup-button">
+    <ion-row class="forgot-password">
+      <span (click)="forgotPassword()">
+        Forgot Password
+      </span>
+    </ion-row>
+
+    <ion-row class=" signup-row ">
+      <button mat-raised-button class="signup-button ">
         login
       </button>
     </ion-row>
 
   </form>
 
-  <ion-row class="trax-logo">
-    <img src="assets/imgs/new-Traxprint.jpg" class="trax-logo-image" />
+  <ion-row class="trax-logo ">
+    <img src="assets/imgs/new-Traxprint.jpg " class="trax-logo-image " />
   </ion-row>
 
-  <ion-row class="goto-signup-row">
-    <span class="not-reg">
+  <ion-row class="goto-signup-row ">
+    <span class="not-reg ">
       Not registered yet?
       <br>
     </span>
-    <span class="goto-signup" (click)="gotoSignup()">
+    <span class="goto-signup " (click)="gotoSignup() ">
       Sign Up here
     </span>
   </ion-row>

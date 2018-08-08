@@ -1,7 +1,7 @@
 page-initial-login {
-    .logo-row{
+    .logo-row {
         // margin-bottom: 20px;
-        .logo-image{
+        .logo-image {
             width: 35%;
         }
     }
@@ -11,6 +11,14 @@ page-initial-login {
         margin-right: auto; // height: 35px;
         margin-top: 30px;
         margin-bottom: 30px;
+        position: relative;
+    }
+    .user-password-row {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto; // height: 35px;
+        margin-top: 30px;
+        margin-bottom: 10px;
         position: relative;
     }
     #userProfile {
@@ -33,16 +41,15 @@ page-initial-login {
         font-size: 11px;
         position: absolute;
     }
-
-    .goto-signup-row{
+    .goto-signup-row {
         margin-bottom: 30px;
         margin-top: 20px;
-        .not-reg{
+        .not-reg {
             width: 100%;
             margin: auto;
             text-align: center;
         }
-        .goto-signup{
+        .goto-signup {
             width: 100%;
             margin: auto;
             text-align: center;
@@ -51,13 +58,21 @@ page-initial-login {
             margin-top: 5px;
         }
     }
-
-    .trax-logo{
+    .trax-logo {
         margin-top: 20px;
-        .trax-logo-image{
+        .trax-logo-image {
             width: 50%;
             height: 100%;
             margin: auto;
+        }
+    }
+    .forgot-password {
+        margin-bottom: 30px;
+        span {
+            font-size: 1.8rem;
+            color: blue;
+            text-align: right;
+            margin-left: auto;
         }
     }
 }

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { FormControl, Validators } from '../../../node_modules/@angular/forms';
 import { WelcomePage } from '../welcome/welcome';
 import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
+import { ServerProvider } from '../../providers/server/server';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 
 /**
  * Generated class for the InitialLoginPage page.
@@ -36,18 +38,22 @@ export class InitialLoginPage {
     Validators.required
   ]);
 
-  public userData = { "firstName": "", "lastName": "", "email": "", "DOB": "", "address": "", "city": "", "state": "", "country": "", "postalCode": "", "uniqueField": "", "password": "", "repassword": "", "pincode": "", "repincode": "" };
+  public userData = { "email": "", "password": "", "apiState": "forgotPass" };
 
   public countryList = ["Australia", "United State"];
   public uniqueList = ["unique1", "unique2"];
 
   public clickSignUp = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController,
+    public apiserver: ServerProvider, public toastCtrl: ToastController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad InitialLoginPage');
+    if (localStorage.getItem("loged") == "login") {
+      this.navCtrl.setRoot(LoginPage);
+    }
   }
 
 
@@ -55,12 +61,42 @@ export class InitialLoginPage {
     this.clickSignUp = true;
     console.log(userProfile);
     if (userProfile.valid) {
-      this.navCtrl.push(LoginPage);
+      let loading = this.loadingCtrl.create({
+        content: "Please Wait..."
+      });
+      loading.present();
+      this.apiserver.postData(this.userData).then(result => {
+        console.log(result);
+        loading.dismiss();
+        if (Object(result).status == "success") {
+          localStorage.setItem("loged", "login");
+          localStorage.setItem("useremail", this.userData.email);
+          this.navCtrl.setRoot(LoginPage);
+        } else {
+          let toast = this.toastCtrl.create({
+            message: Object(result).detail,
+            duration: 2000
+          });
+          toast.present();
+        }
+      }, error => {
+        loading.dismiss();
+        let toast = this.toastCtrl.create({
+          message: "No Network",
+          duration: 2000
+        });
+        toast.present();
+      })
+      // this.navCtrl.push(LoginPage);
     }
   }
 
   gotoSignup() {
     this.navCtrl.push(SignupPage);
+  }
+
+  forgotPassword() {
+    this.navCtrl.push(ForgotPasswordPage);
   }
 
 }

@@ -38,8 +38,9 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { SettingPage } from '../pages/setting/setting';
 import { TradeCenterPage } from '../pages/trade-center/trade-center';
 import { InitialLoginPage } from '../pages/initial-login/initial-login';
-import { ApiserverProvider } from '../providers/apiserver/apiserver';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
+import { ServerProvider } from '../providers/server/server';
+import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 
 
 
@@ -58,6 +59,7 @@ import { HttpClientModule } from '../../node_modules/@angular/common/http';
     SettingPage,
     TradeCenterPage,
     InitialLoginPage,
+    ForgotPasswordPage,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +84,7 @@ import { HttpClientModule } from '../../node_modules/@angular/common/http';
     SettingPage,
     TradeCenterPage,
     InitialLoginPage,
+    ForgotPasswordPage,
   ],
   providers: [
     StatusBar,
@@ -89,7 +92,7 @@ import { HttpClientModule } from '../../node_modules/@angular/common/http';
     Camera,
     FingerprintAIO,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    ApiserverProvider
+    ServerProvider,
   ]
 })
 export class AppModule { }

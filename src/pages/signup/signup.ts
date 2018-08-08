@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { FormControl, Validators } from '../../../node_modules/@angular/forms';
 import { WelcomePage } from '../welcome/welcome';
-import { ApiserverProvider } from '../../providers/apiserver/apiserver';
+import { ServerProvider } from '../../providers/server/server';
+// import { ApiserverProvider } from '../../providers/apiserver/apiserver';
 
 /**
  * Generated class for the SignupPage page.
@@ -42,30 +43,15 @@ export class SignupPage {
 
   public clickSignUp = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public loadingCtrl: LoadingController, public apiserver: ApiserverProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public loadingCtrl: LoadingController, public apiserver: ServerProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
-    this.userData.firstName = "VeeR";
-    this.userData.lastName = "Hunter";
-    this.userData.email = "veerhunter127@gmail.com";
-    this.userData.DOB = "2018-08-08";
-    this.userData.country = "Australia";
-    this.userData.address = "9 Road Lind address";
-    this.userData.city = "Sidney";
-    this.userData.password = "password1234";
-    this.userData.repassword = "password1234";
-    this.userData.pincode = "1234";
-    this.userData.repincode = "1234";
-    this.userData.state = "Sidney";
-    this.userData.postalCode = "123456";
-    this.userData.uniqueField = "unique1";
   }
 
   signUpUser(userProfile) {
     this.clickSignUp = true;
-    console.log(userProfile);
     if (userProfile.valid && this.userData.password == this.userData.repassword && this.userData.pincode == this.userData.repincode) {
       console.log(JSON.stringify(this.userData));
       console.log(this.userData);
@@ -77,6 +63,8 @@ export class SignupPage {
         loading.dismiss();
         console.log(Object(result));
         if (Object(result).status == "success") {
+          localStorage.setItem("loged", "login");
+          localStorage.setItem("useremail", this.userData.email);
           this.navCtrl.push(WelcomePage);
         } else {
           let toast = this.toastCtrl.create({

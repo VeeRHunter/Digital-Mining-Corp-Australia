@@ -22,17 +22,16 @@ page-login {
             .each-input {
                 color: #777272;
                 font-size: 2.5rem;
-                input{
+                input {
                     margin-top: 10%;
                     margin-left: 32%;
                 }
             }
         }
     }
-
-    .access-row{
+    .access-row {
         margin-top: 10px;
-        .access-button{
+        .access-button {
             margin: auto;
             width: 50%;
             background-color: #21bacf;
@@ -41,34 +40,41 @@ page-login {
             font-size: 18px;
             border-radius: 8px;
         }
+        .avail_access {
+            background-color: #2a35e6;
+            margin: auto;
+            width: 50%;
+            color: white;
+            height: 40px;
+            font-size: 18px;
+            border-radius: 8px;
+        }
     }
-    .fingerprint-row{
+    .fingerprint-row {
         margin-top: 30px;
-        .fingerprint-image{
+        .fingerprint-image {
             width: 70%;
             height: 100%;
             margin: auto;
         }
     }
-
-    .trax-logo{
+    .trax-logo {
         margin-top: 20px;
-        .trax-logo-image{
+        .trax-logo-image {
             width: 50%;
             height: 100%;
             margin: auto;
         }
     }
-
-    .signup-row{
+    .signup-row {
         margin-bottom: 30px;
         margin-top: 20px;
-        .not-reg{
+        .not-reg {
             width: 100%;
             margin: auto;
             text-align: center;
         }
-        .goto-signup{
+        .goto-signup {
             width: 100%;
             margin: auto;
             text-align: center;

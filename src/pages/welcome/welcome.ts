@@ -6,6 +6,7 @@ import { AccountPage } from '../account/account';
 import { SmsfPage } from '../smsf/smsf';
 import { EascrowPage } from '../eascrow/eascrow';
 import { MainPage } from '../main/main';
+import { InitialLoginPage } from '../initial-login/initial-login';
 
 /**
  * Generated class for the WelcomePage page.
@@ -32,19 +33,20 @@ export class WelcomePage {
     console.log('ionViewDidLoad WelcomePage');
   }
 
-  logOff(){
-    this.navCtrl.setRoot(LoginPage);
+  logOff() {
+    localStorage.setItem("loged", "");
+    this.navCtrl.setRoot(InitialLoginPage);
   }
-  gotoRealEstate(){
+  gotoRealEstate() {
     this.navCtrl.push(MainPage);
   }
-  gotoAccount(){
+  gotoAccount() {
     this.navCtrl.push(AccountPage);
   }
-  gotoSMSF(){
+  gotoSMSF() {
     this.navCtrl.push(SmsfPage);
   }
-  gotoEscrow(){
+  gotoEscrow() {
     this.navCtrl.push(EascrowPage);
   }
 

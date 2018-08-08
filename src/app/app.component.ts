@@ -36,9 +36,11 @@ export class MyApp {
       splashScreen.hide();
     });
   }
+  
   openPage(page) {
     if (page.title == "Log Out") {
-      this.nav.setRoot(LoginPage);
+      this.nav.setRoot(InitialLoginPage);
+      localStorage.setItem("loged", "");
     } else {
       this.nav.push(page.component);
     }

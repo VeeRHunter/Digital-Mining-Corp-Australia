@@ -38,6 +38,8 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { SettingPage } from '../pages/setting/setting';
 import { TradeCenterPage } from '../pages/trade-center/trade-center';
 import { InitialLoginPage } from '../pages/initial-login/initial-login';
+import { ApiserverProvider } from '../providers/apiserver/apiserver';
+import { HttpClientModule } from '../../node_modules/@angular/common/http';
 
 
 
@@ -62,6 +64,7 @@ import { InitialLoginPage } from '../pages/initial-login/initial-login';
     IonicModule.forRoot(MyApp),
     BrowserAnimationsModule,
     HttpModule,
+    HttpClientModule,
     MatInputModule, MatButtonModule, MatChipsModule, MatIconModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule
   ],
   bootstrap: [IonicApp],
@@ -85,7 +88,8 @@ import { InitialLoginPage } from '../pages/initial-login/initial-login';
     SplashScreen,
     Camera,
     FingerprintAIO,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    ApiserverProvider
   ]
 })
 export class AppModule { }

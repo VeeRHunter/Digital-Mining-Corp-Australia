@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormControl, Validators } from '../../../node_modules/@angular/forms';
 import { WelcomePage } from '../welcome/welcome';
 import { LoginPage } from '../login/login';
+import { SignupPage } from '../signup/signup';
 
 /**
  * Generated class for the InitialLoginPage page.
@@ -56,6 +57,10 @@ export class InitialLoginPage {
     if (userProfile.valid) {
       this.navCtrl.push(LoginPage);
     }
+  }
+
+  gotoSignup() {
+    this.navCtrl.push(SignupPage);
   }
 
 }

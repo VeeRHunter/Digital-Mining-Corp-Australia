@@ -14,5 +14,14 @@ $(document).ready(function () {
         console.log("aaaaaaaaaaaaaa");
     });
 
+    // $('body').on('click', '#inputEquity', function (e) {
+    //     console.log($('#inputEquity').offset().top);
+    //     e.preventDefault();
+    //     $('html, body').animate({
+    //         scrollTop: $('#inputEquity').offset().top
+    //     }, 500);
+    //     return false;
+    // });
+
 
 });

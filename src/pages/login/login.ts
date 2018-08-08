@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController, Content } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { WelcomePage } from '../welcome/welcome';
 
@@ -16,6 +16,7 @@ import { WelcomePage } from '../welcome/welcome';
   templateUrl: 'login.html',
 })
 export class LoginPage {
+  @ViewChild(Content) content: Content;
 
   public pin1 = "";
   public pin2 = "";
@@ -31,8 +32,6 @@ export class LoginPage {
 
 
   changeInput1(input2, event) {
-    console.log(event);
-    console.log("event");
     if (this.pin1.length == 1) {
       // this.input2.setFocus();
       localStorage.setItem("input1", this.pin1);
@@ -41,10 +40,10 @@ export class LoginPage {
     else if (this.pin1.length > 1) {
       this.pin1 = this.pin1.slice(0, -1);
     }
+    // this.scrollUp();
   }
 
   changeInput2(input1, input3, event) {
-    console.log(event);
     // let input2 = 
     if (this.pin2.length == 1) {
       // this.input3.setFocus();
@@ -61,10 +60,10 @@ export class LoginPage {
     else {
       this.pin2 = this.pin2.slice(0, -1);
     }
+    // this.scrollUp();
   }
 
   changeInput3(input2, input4, event) {
-    console.log(event);
     // let input2 = 
     if (this.pin3.length == 1) {
       // this.input4.setFocus();
@@ -81,10 +80,10 @@ export class LoginPage {
     else {
       this.pin3 = this.pin3.slice(0, -1);
     }
+    // this.scrollUp();
   }
 
   changeInput4(input3, event) {
-    console.log(event);
     // let input2 = 
     if (this.pin4 == "") {
       // this.input3.setFocus();
@@ -101,9 +100,22 @@ export class LoginPage {
     else {
       this.pin4 = this.pin4.slice(0, -1);
     }
+    // this.scrollUp();
   }
 
-  checkCode() {
+  scrollUp() {
+    // if (localStorage.getItem("scrollUpLogin") == "set") {
+    // } else {
+    // var itemTop = document.getElementById("input1").offsetTop;
+    // let itemPositionY = this.content.getContentDimensions().scrollTop + itemTop;
+    // console.log(itemTop);
+    // console.log(itemPositionY);
+    // this.content.scrollTo(null, itemTop + 30, 500);
+    // localStorage.setItem("scrollUpLogin", "set");
+    // }
+  }
+
+  submitAccess() {
     console.log("login");
     if (this.pin1 != "" && this.pin2 != "" && this.pin3 != "" && this.pin4 != "") {
       this.navCtrl.push(WelcomePage);

@@ -12,6 +12,7 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+///////////// Global css
 ion-row {
     width: 100%;
 }
@@ -44,30 +45,70 @@ ion-row {
     padding-top: 20px;
 }
 
-
 .logo-row {
     margin-top: 10px;
 }
+
 .logo-image {
     width: 50%;
     height: 100%;
     margin: auto;
 }
 
+//////// Menu List
+.menu-content {
+    // height: 80%;
+    background-color: #3883a4;
+    color: white;
+}
+
+.menu-content.content-ios {
+    margin-top: 6%;
+}
+
+.first-menu {
+    top: 5%;
+    position: absolute;
+}
+
+.second_row {
+    bottom: 2%;
+    position: absolute;
+}
+
+.bottom_menu_content {
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.menu-imageList {
+    margin: auto;
+    font-size: 2.5rem;
+}
+
+.menu-list {
+    font-size: 1.7rem;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.top-menu-content {
+    margin-top: 5%;
+}
+
+/////// Material CSS
 .mat-form-field {
     width: 100%;
 }
 
 .user-input-row .mat-input-flex.mat-form-field-flex {
-    border-bottom: 1px solid #a16c92 !important;
-    // border-radius: 5px;
+    border-bottom: 1px solid #a16c92 !important; // border-radius: 5px;
     /* padding-left: 10px; */
 }
 
 .user-input-row .mat-form-field-infix {
     background-color: white;
-    width: 100%;
-    // padding: 1em 0;
+    width: 100%; // padding: 1em 0;
     // padding-left: 10px;
     // padding-right: 10px;
     // margin-top: 1rem;
@@ -83,11 +124,34 @@ ion-row {
 // .user-input-row .mat-form-field-label {
 //     padding-left: 10px;
 // }
-
 // .user-input-row .mat-input-underline {
 //     width: 99%;
 //     margin-left: 0.5%;
 // }
+.trade-detail {
+    .mat-form-field-wrapper {
+        padding-bottom: unset !important;
+    }
+    .mat-form-field-infix {
+        padding: unset !important;
+        border-top: unset !important;
+    }
+    .mat-input-underline {
+        display: none;
+    }
+    mat-form-field {
+        border-bottom: 2px solid blue;
+    }
+}
+
+
+
+
+
+
+
+
+
 
 
 

@@ -9,9 +9,6 @@ import { HomePage } from '../pages/home/home';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
-import { LoginPage } from '../pages/login/login';
-import { SignupPage } from '../pages/signup/signup';
-import { WelcomePage } from '../pages/welcome/welcome';
 
 
 
@@ -26,10 +23,22 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 
 import { HttpModule, Http } from '@angular/http';
+
+
+
+
 import { RealEastatePage } from '../pages/real-eastate/real-eastate';
 import { AccountPage } from '../pages/account/account';
 import { SmsfPage } from '../pages/smsf/smsf';
 import { EascrowPage } from '../pages/eascrow/eascrow';
+import { MainPage } from '../pages/main/main';
+import { LoginPage } from '../pages/login/login';
+import { SignupPage } from '../pages/signup/signup';
+import { WelcomePage } from '../pages/welcome/welcome';
+import { SettingPage } from '../pages/setting/setting';
+import { TradeCenterPage } from '../pages/trade-center/trade-center';
+
+
 
 @NgModule({
   declarations: [
@@ -42,6 +51,9 @@ import { EascrowPage } from '../pages/eascrow/eascrow';
     AccountPage,
     SmsfPage,
     EascrowPage,
+    MainPage,
+    SettingPage,
+    TradeCenterPage,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +73,9 @@ import { EascrowPage } from '../pages/eascrow/eascrow';
     AccountPage,
     SmsfPage,
     EascrowPage,
+    MainPage,
+    SettingPage,
+    TradeCenterPage,
   ],
   providers: [
     StatusBar,

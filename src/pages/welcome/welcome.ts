@@ -5,6 +5,7 @@ import { RealEastatePage } from '../real-eastate/real-eastate';
 import { AccountPage } from '../account/account';
 import { SmsfPage } from '../smsf/smsf';
 import { EascrowPage } from '../eascrow/eascrow';
+import { MainPage } from '../main/main';
 
 /**
  * Generated class for the WelcomePage page.
@@ -35,7 +36,7 @@ export class WelcomePage {
     this.navCtrl.setRoot(LoginPage);
   }
   gotoRealEstate(){
-    this.navCtrl.push(RealEastatePage);
+    this.navCtrl.push(MainPage);
   }
   gotoAccount(){
     this.navCtrl.push(AccountPage);

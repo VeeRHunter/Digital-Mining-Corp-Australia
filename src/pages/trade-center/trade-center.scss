@@ -1,21 +1,29 @@
-page-real-eastate {
+page-trade-center {
     .logo-image {
         width: 30%;
     }
-    .page-title {
-        margin-top: 15px;
+    .trade-center-titlee {
+        margin-top: 5px;
         span {
-            font-size: 2.5rem;
+            width: 100%;
             text-align: center;
             margin: auto;
-            width: 100%;
+            color: #ed8243;
         }
-        .small-page-title {
-            font-size: 1.5rem;
+        .trade-title {
+            color: black;
+            font-size: 2.5rem;
+            font-weight: 500;
+        }
+        .real-title {
+            font-size: 2rem;
+        }
+        .eastate-value {
+            font-size: 1.3rem;
         }
     }
     .building-image-row {
-        margin-top: 20px;
+        margin-top: 10px;
         border-top: 1px solid #ed7d31;
         border-bottom: 1px solid #ed7d31;
         ion-col {
@@ -51,6 +59,10 @@ page-real-eastate {
     .bulding-price {
         font-size: 1.8rem;
         margin-top: 10px;
+        span {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
         .normal-value {
             color: black;
         }
@@ -60,69 +72,67 @@ page-real-eastate {
         .debt-value {
             color: #ff0a0a;
         }
+        .each-price-row {
+            height: 35px;
+        }
     }
-    .property-row {
-        margin-top: 55px;
+    .trade-desk {
+        border-top: 2px solid #e29e70;
+        margin-top: 20px;
         span {
+            padding-left: 3%;
+            padding-top: 5px;
             font-size: 2rem;
-            text-align: center;
-            margin: auto;
+            font-weight: bold;
         }
     }
-    .find-estate {
-        margin-top: 25px;
-        button {
-            width: 50%;
-            background-color: #0056d6;
-            color: white;
-            margin: auto;
-        }
-    }
-    .trade-centre {
-        margin-top: 40px;
-        width: 110%;
-        margin-left: -5%;
-        border-top: 1px solid #f5ba91;
-        border-bottom: 1px solid #f5ba91;
-        padding: 5px 0px;
+    .enter-volume-title {
         span {
-            font-size: 2rem;
-            text-align: center;
-            margin: auto;
+            font-size: 1.6rem;
         }
     }
-    .buy-sell-row {
+    .right-element {
+        text-align: right;
+        margin-left: auto;
+    }
+    .trade-detail {
+        font-size: 1.6rem;
+        padding-left: 3%;
+        padding-right: 5%;
+        span {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        ion-icon {
+            color: #71b15c;
+        }
+    }
+    .confirm-part {
         margin-top: 10px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        .invest-buy {
-            margin: auto;
-            font-size: 2.3rem;
+        margin-bottom: 10px;
+        span {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #71b15c;
             text-align: center;
-            color: #668839;
-        }
-        .invest-sell {
-            color: red;
-            font-size: 2.3rem;
             margin: auto;
-            text-align: center;
         }
-        .finger-image {
+        img {
             width: 100%;
             height: 100%;
             margin: auto;
         }
     }
-    .access-code {
-        margin-top: 10px;
+    .balance-margin-row {
         margin-bottom: 20px;
-        button {
-            width: 40%;
-            color: white;
-            background-color: #21bacf;
-            padding: 1px 0px;
-            margin: auto;
-            border-radius: 8px;
+    }
+    .balance-row {
+        span {
+            font-size: 1.6rem;
+            color: #aeba54;
+        }
+        .balance-title {
+            color: black;
         }
     }
 }

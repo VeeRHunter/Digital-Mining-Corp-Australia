@@ -30,30 +30,34 @@
       <br> investments portal
     </span>
   </ion-row>
-
+  <!-- <form #userProfile="ngForm" id="userProfile" (ngSubmit)="submitAccess(userProfile)" novalidate> -->
   <ion-row class="pin-text">
     <ion-row class="pin-row">
       <ion-col col-3>
         <ion-row class="full-height">
-          <ion-input type="number" #input1 [(ngModel)]="pin1" min="0" max="9" (keyup)="changeInput1(input2, $event)" class="each-input">
+          <ion-input type="number" id="input1" (focus)="scrollUp()" #input1 [(ngModel)]="pin1" min="0" max="9" (keyup)="changeInput1(input2, $event)"
+            class="each-input">
           </ion-input>
         </ion-row>
       </ion-col>
       <ion-col col-3>
         <ion-row class="full-height">
-          <ion-input type="number" #input2 [(ngModel)]="pin2" min="0" max="9" (keyup)="changeInput2(input1, input3, $event)" class="each-input">
+          <ion-input type="number" #input2 (focus)="scrollUp()" [(ngModel)]="pin2" min="0" max="9" (keyup)="changeInput2(input1, input3, $event)"
+            class="each-input">
           </ion-input>
         </ion-row>
       </ion-col>
       <ion-col col-3>
         <ion-row class="full-height">
-          <ion-input type="number" #input3 [(ngModel)]="pin3" min="0" max="9" (keyup)="changeInput3(input2, input4, $event)" class="each-input">
+          <ion-input type="number" #input3 (focus)="scrollUp()" [(ngModel)]="pin3" min="0" max="9" (keyup)="changeInput3(input2, input4, $event)"
+            class="each-input">
           </ion-input>
         </ion-row>
       </ion-col>
       <ion-col col-3>
         <ion-row class="full-height">
-          <ion-input type="number" #input4 [(ngModel)]="pin4" min="0" max="9" (keyup)="changeInput4(input3, $event)" class="each-input">
+          <ion-input type="number" #input4 (focus)="scrollUp()" [(ngModel)]="pin4" min="0" max="9" (keyup)="changeInput4(input3, $event)"
+            class="each-input">
           </ion-input>
         </ion-row>
       </ion-col>
@@ -61,17 +65,18 @@
   </ion-row>
 
   <ion-row class="access-row">
-    <button mat-raised-button class="access-button" (click)="checkCode()">
+    <button mat-raised-button class="access-button" (click)="submitAccess()">
       ACCESS CODE
     </button>
   </ion-row>
+  <!-- </form> -->
 
   <ion-row class="fingerprint-row">
     <img class="fingerprint-image" src="assets/imgs/finger.png" />
   </ion-row>
 
   <ion-row class="trax-logo">
-    <img src="assets/imgs/traxprint_logo.png" class="trax-logo-image" />
+    <img src="assets/imgs/new-Traxprint.jpg" class="trax-logo-image" />
   </ion-row>
 
   <ion-row class="signup-row">

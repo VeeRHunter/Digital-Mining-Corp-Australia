@@ -1,81 +1,69 @@
-page-real-eastate {
+page-main {
     .logo-image {
         width: 30%;
     }
     .page-title {
-        margin-top: 15px;
-        span {
-            font-size: 2.5rem;
-            text-align: center;
-            margin: auto;
-            width: 100%;
-        }
-        .small-page-title {
-            font-size: 1.5rem;
-        }
-    }
-    .building-image-row {
         margin-top: 20px;
-        border-top: 1px solid #ed7d31;
-        border-bottom: 1px solid #ed7d31;
-        ion-col {
-            padding: unset;
-        }
-        ion-icon {
-            color: #ed7d31;
-            margin: auto;
-            font-size: 7rem;
-        }
-    }
-    .padding-row {
-        span {
-            padding: 0% 3%;
-        }
-    }
-    .build-des-row {
-        background-color: #f2f2f2; // margin-top: 10px;
-        padding: 5px 0px;
-        position: relative;
-        span {
-            color: black;
-        }
-        .jointly-owned {
-            background-color: red;
-            color: black;
-            margin: auto;
-            position: absolute;
-            bottom: -5px;
-            padding: 5%;
-        }
-    }
-    .bulding-price {
-        font-size: 1.8rem;
-        margin-top: 10px;
-        .normal-value {
-            color: black;
-        }
-        .equity-value {
-            color: #9cc188;
-        }
-        .debt-value {
-            color: #ff0a0a;
-        }
-    }
-    .property-row {
-        margin-top: 55px;
         span {
             font-size: 2rem;
             text-align: center;
             margin: auto;
         }
     }
-    .find-estate {
-        margin-top: 25px;
-        button {
-            width: 50%;
-            background-color: #0056d6;
+    .assets-property-row {
+        margin-top: 20px;
+        width: 110%;
+        margin-left: -5%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        background-color: #ed7d31;
+        span {
             color: white;
+            font-size: 2rem;
+            text-align: center;
             margin: auto;
+        }
+    }
+    .org-investment {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 110%;
+        margin-left: -5%;
+        span {
+            font-size: 1.7rem;
+            padding-left: 5%;
+        }
+    }
+    .daily-yield {
+        background: #f2f2f2;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 110%;
+        margin-left: -5%;
+        span {
+            color: #efa960;
+            font-size: 1.7rem;
+            padding-left: 5%;
+        }
+    }
+    .live-feed {
+        margin-top: 30px;
+        button {
+            width: 35%;
+            color: white;
+            background-color: #ff0000;
+            margin: auto;
+        }
+    }
+    .live-feed-value {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        span {
+            color: #548235;
+            font-size: 2.7rem;
+            text-align: center;
+            margin: auto;
+            font-weight: 500;
         }
     }
     .trade-centre {

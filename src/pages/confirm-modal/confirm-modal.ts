@@ -27,7 +27,7 @@ export class ConfirmModalPage {
 
   fingerprintOptions: FingerprintOptions;
 
-  public userData = { "email": "", "pinCode": "", "apiState": "pinlogin" };
+  public userData = { "email": "", "pinCode": "", "apiState": "pinlogin", "lastLoginTime": "" };
   public availAccess = false;
   public returnData: any;
 
@@ -44,6 +44,9 @@ export class ConfirmModalPage {
     };
     console.log('ionViewDidLoad LoginPage');
     this.userData.email = localStorage.getItem("useremail");
+    
+    // localStorage.setItem("lastLoginTime", Object(result).lastLoginTime);
+    this.userData.lastLoginTime = localStorage.getItem("lastLoginTime");
   }
 
   changeInput1(input2) {

@@ -27,8 +27,13 @@ export class LoginPage {
 
   fingerprintOptions: FingerprintOptions;
 
-  public userData = { "email": "", "pinCode": "", "apiState": "pinlogin" };
+  public userData = { "email": "", "pinCode": "", "apiState": "pinlogin", "lastLoginTime": "" };
   public availAccess = false;
+  public lastLoginTime: any;
+
+  public weekName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  public monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController
     , public loadingCtrl: LoadingController, public apiserver: ServerProvider, public platform: Platform, public fingerAuth: FingerprintAIO) {
@@ -42,6 +47,16 @@ export class LoginPage {
     };
     console.log('ionViewDidLoad LoginPage');
     this.userData.email = localStorage.getItem("useremail");
+  }
+
+  getLastLoginTime() {
+    let localTime = new Date().toLocaleTimeString();
+    let weekDay = new Date().getDay();
+    let dateTime = new Date().toLocaleDateString();
+    let timeZoon = new Date().toTimeString();
+    this.lastLoginTime = localTime.split(" ")[0].split(":")[0] + ":" + localTime.split(" ")[0].split(":")[1] + localTime.split(" ")[1].toLocaleLowerCase() + " On " + this.weekName[weekDay] + " " + dateTime.split("/")[1] + " " + this.monthNames[parseInt(dateTime.split("/")[0]) - 1] + " " + dateTime.split("/")[2] + " (" + timeZoon.split(" ")[1] + ")";
+    console.log(this.lastLoginTime);
+    this.userData.lastLoginTime = this.lastLoginTime;
   }
 
   changeInput1(input2) {
@@ -117,6 +132,7 @@ export class LoginPage {
   submitAccess() {
     console.log("login");
     if (this.pin1 != "" && this.pin2 != "" && this.pin3 != "" && this.pin4 != "") {
+      this.getLastLoginTime();
       this.userData.email = localStorage.getItem("useremail");
       this.userData.pinCode = this.pin1 + this.pin2 + this.pin3 + this.pin4;
       this.userData.apiState = "pinlogin";
@@ -130,6 +146,8 @@ export class LoginPage {
         console.log(result);
         loading.dismiss();
         if (Object(result).status == "success") {
+          localStorage.setItem("lastLoginName", Object(result).username);
+          localStorage.setItem("lastLoginTime", Object(result).lastLoginTime);
           this.navCtrl.setRoot(WelcomePage);
         } else {
           let toast = this.toastCtrl.create({
@@ -152,8 +170,7 @@ export class LoginPage {
     } else {
       let toast = this.toastCtrl.create({
         message: 'Please input pin code',
-        duration: 3000,
-        position: 'top'
+        duration: 3000
       });
 
       toast.present();
@@ -172,6 +189,7 @@ export class LoginPage {
       if (available != null) {
         const result = await this.fingerAuth.show(this.fingerprintOptions);
         if (result.withFingerprint != null && result.withFingerprint != "") {
+          this.getLastLoginTime();
           let loading = this.loadingCtrl.create({
             content: "Please Wait..."
           });
@@ -179,6 +197,8 @@ export class LoginPage {
           this.apiserver.postData(this.userData).then(result => {
             loading.dismiss();
             if (Object(result).status == "success") {
+              localStorage.setItem("lastLoginName", Object(result).username);
+              localStorage.setItem("lastLoginTime", Object(result).lastLoginTime);
               this.navCtrl.setRoot(WelcomePage);
             } else {
               let toast = this.toastCtrl.create({
@@ -199,6 +219,11 @@ export class LoginPage {
         console.log(result);
       }
     } catch (error) {
+      let toast = this.toastCtrl.create({
+        message: "You didn't set fingerprint password on your phone. Please set and try again",
+        duration: 2000
+      });
+      toast.present();
       console.log("error log");
       console.error(error);
     }

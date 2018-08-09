@@ -11,11 +11,12 @@ page-confirm-modal {
             overflow: auto;
             position: relative;
             .close-modal{
-                position: absolute;
+                position: fixed;
+                width: 80%;
                 ion-icon{
-                    color: blue;
+                    color: black;
                     margin-left: auto !important;
-                    margin-right: 10px !important;
+                    margin-right: 15px !important;
                     margin-top: 10px !important;
                 }
             }
@@ -68,15 +69,6 @@ page-confirm-modal {
                 margin-top: 30px;
                 .fingerprint-image {
                     width: 70%;
-                    height: 100%;
-                    margin: auto;
-                }
-            }
-            .trax-logo {
-                margin-top: 20px;
-                margin-bottom: 20px;
-                .trax-logo-image {
-                    width: 50%;
                     height: 100%;
                     margin: auto;
                 }

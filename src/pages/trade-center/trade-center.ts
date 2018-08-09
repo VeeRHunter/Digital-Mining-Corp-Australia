@@ -92,7 +92,24 @@ export class TradeCenterPage {
 
   focusOutEquityValue() {
     console.log("focusOutEquityValue");
-    this.equitySwapValue = parseFloat(this.equitySwapValue).toFixed(2);
+    if (this.equitySwapValue > this.swapMax) {
+      this.equitySwapValue = this.swapMax;
+      let toast = this.toastCtrl.create({
+        message: "You can't set more than 95% of current price",
+        duration: 2000
+      });
+      toast.present();
+    } else if (this.equitySwapValue < 0) {
+      this.equitySwapValue = (0).toFixed(2);
+      let toast = this.toastCtrl.create({
+        message: "You can't set less than 0",
+        duration: 2000
+      });
+      toast.present();
+    }
+    else {
+      this.equitySwapValue = parseFloat(this.equitySwapValue).toFixed(2);
+    }
     this.showEditEquityValue = false;
   }
 

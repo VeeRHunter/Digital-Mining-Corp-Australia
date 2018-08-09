@@ -26,11 +26,16 @@ export class WelcomePage {
   public logedDate = "Monday 16 july 2018";
   public logedTimezone = "GMT +10.00";
 
+  public lastLoginUserName = "";
+  public lastLoginTime = "";
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WelcomePage');
+    this.lastLoginUserName = localStorage.getItem("lastLoginName");
+    this.lastLoginTime = localStorage.getItem("lastLoginTime");
   }
 
   logOff() {

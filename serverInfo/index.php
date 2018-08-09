@@ -9,10 +9,10 @@
 
 
 
-	// $con=mysqli_connect('localhost','traxprintasia_digital','5QtpxC#mvhVL','traxprintasia_dmc_au');
+	$con=mysqli_connect('localhost','traxprintasia_digital','5QtpxC#mvhVL','traxprintasia_dmc_au');
 
 
-	$con=mysqli_connect("localhost","root","",'digital-mining-corp-au');
+// 	$con=mysqli_connect("localhost","root","",'digital-mining-corp-au');
 		
 		
 	if ($con->connect_error) {
@@ -119,6 +119,7 @@
 		else if($apistate == "pinlogin"){
 			$email = $request->email;
 			$pincode = $request->pinCode;
+			$user_lastLogin = $request->lastLoginTime;
 			$sel = "SELECT * FROM userinfo";
 			$query = mysqli_query($con, $sel);
 			if(!$query){
@@ -127,8 +128,15 @@
 			} else {
 				while($row = mysqli_fetch_array($query)){
 					if($row['user_pincode'] == $pincode && $row['user_email'] == $email){
-						echo json_encode(['status'=>'success', 'email'=>$email]);
-						exit;
+					    
+					    $update="UPDATE userinfo SET `user_lastLogin` = '$user_lastLogin' WHERE user_email = '$email'";
+				    	if(mysqli_query($con, $update)){
+    						echo json_encode(['status'=>'success', 'email'=>$email, 'username'=>$row['user_fname'].' '.$row['user_lname'], 'lastLoginTime'=>$row['user_lastLogin']]);
+    						exit;
+				    	} else {
+    						echo json_encode(['status'=>'fail', 'detail'=>'Can not update database.']);
+    						exit;
+    					}
 					}
 				}
 				echo json_encode(['status'=>'fail', 'detail'=>'Invalide PIN code']);
@@ -136,6 +144,7 @@
 		}
 		else if($apistate == "fingerlogin"){
 			$email = $request->email;
+			$user_lastLogin = $request->lastLoginTime;
 			$sel = "SELECT * FROM userinfo";
 			$query = mysqli_query($con, $sel);
 			if(!$query){
@@ -144,8 +153,15 @@
 			} else {
 				while($row = mysqli_fetch_array($query)){
 					if($row['user_email'] == $email){
-						echo json_encode(['status'=>'success', 'email'=>$email]);
-						exit;
+					    
+					    $update="UPDATE userinfo SET `user_lastLogin` = '$user_lastLogin' WHERE user_email = '$email'";
+				    	if(mysqli_query($con,$update)){
+    						echo json_encode(['status'=>'success', 'email'=>$email, 'username'=>$row['user_fname'].' '.$row['user_lname'], 'lastLoginTime'=>$row['user_lastLogin']]);
+    						exit;
+				    	} else {
+    						echo json_encode(['status'=>'fail', 'detail'=>'Can not update database.']);
+    						exit;
+    					}
 					}
 				}
 				echo json_encode(['status'=>'fail', 'detail'=>'Invalide information']);
@@ -157,16 +173,13 @@
 			$sel = "SELECT * FROM userinfo";
 			$query = mysqli_query($con, $sel);
 
-            $confirm_code = rand(100000,999999);
-
 			$existUser = 2;
 
-			echo json_encode($query);
-			exit;
 			if(!$query){
 				echo json_encode(['status'=>'fail', 'detail'=>'Database is not exist']);
 				exit;
 			} else {
+				$confirm_code = rand(100000,999999);
 				while($row = mysqli_fetch_array($query)){
 					if($row['user_email'] == $email){
 						$existUser = 1;
@@ -195,20 +208,66 @@
 	
 						echo json_encode(['status'=>'success']);
 						exit;
-					} else{
+					} else {
 						echo json_encode(['status'=>'fail', 'detail'=>'Can not update database.']);
 						exit;
 					}
 				}
-				else{
+				else {
 					echo json_encode(['status'=>'fail', 'detail'=>'You are not registered yet']);
 					exit;
 				}
 			}
+			// if(!$query){
+			// 	echo json_encode(['status'=>'fail', 'detail'=>'Database is not exist']);
+			// 	exit;
+			// } else {
+			// 	while($row = mysqli_fetch_array($query)){
+			// 		if($row['user_email'] == $email){
+			// 			$existUser = 1;
+			// 		}
+			// 	}
+			// 	if($existUser == 1)
+			// 	{
+			// 		$update="UPDATE userinfo SET `user_forget` = '$confirm_code' WHERE user_email = '$email'";
+			// 		if(mysqli_query($con,$update)){
+	
+			// 			$transport = (new Swift_SmtpTransport('mail.traxprint.asia', 465))
+			// 			->setUsername('dmcaserver@traxprint.asia')
+			// 			->setPassword('Cn+tQKG&4M1-')
+			// 			->setEncryption('ssl')
+			// 			;
+	
+			// 			$mailer = new Swift_Mailer($transport);
+	
+			// 			$message = (new Swift_Message('Digital Mining Corp Australia'))
+			// 			->setFrom(['dmcaserver@traxprint.asia' => 'Digital Mining Corp Australia'])
+			// 			->setTo([$email, 'other@domain.org' => 'Confirm Code for forgor password'])
+			// 			->setBody('The Message detail is :  <br /><br />'.$confirm_code, 'text/html');
+	
+	
+			// 			$result = $mailer->send($message);
+	
+			// 			echo json_encode(['status'=>'success']);
+			// 			exit;
+			// 		} else{
+			// 			echo json_encode(['status'=>'fail', 'detail'=>'Can not update database.']);
+			// 			exit;
+			// 		}
+			// 	}
+			// 	else{
+			// 		echo json_encode(['status'=>'fail', 'detail'=>'You are not registered yet']);
+			// 		exit;
+			// 	}
+			// }
 		}
 		else if($apistate == "sendConfirm"){
 			$email = $request->email;
 			$confirmCode = $request->confirm;
+			$password = $request->password;
+			
+			$changedpassword = md5($password);
+			
 			$sel = "SELECT * FROM userinfo";
 			$query = mysqli_query($con, $sel);
 			if(!$query){
@@ -218,7 +277,7 @@
 				while($row = mysqli_fetch_array($query)){
 					if($row['user_email'] == $email && $row['user_forget'] == $confirmCode){
 					    
-    					$update="UPDATE userinfo SET `user_password` = '$password' WHERE user_email = '$email'";
+    					$update="UPDATE userinfo SET `user_password` = '$changedpassword' WHERE user_email = '$email'";
     					if(mysqli_query($con,$update)){
     						echo json_encode(['status'=>'success', 'email'=>$email]);
     						exit;

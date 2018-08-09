@@ -30,7 +30,7 @@
       <br> investment vault
     </span>
     <span class="big-des">
-      Geneva Langton
+      {{lastLoginUserName}}
     </span>
   </ion-row>
 
@@ -40,14 +40,13 @@
 
   <ion-row class="log-des">
     <span>
-      You last logged on at {{logedTime}}pm
-      <br> on {{logedDate}} ({{logedTimezone}})
+      You last logged on at {{lastLoginTime}}
     </span>
   </ion-row>
 
   <ion-row class="identy-row">
     <span>
-      Identity Not Verified
+      Please verify your identity
     </span>
   </ion-row>
 
@@ -96,6 +95,10 @@
         </ion-row>
       </ion-col>
     </ion-row>
+  </ion-row>
+
+  <ion-row class="trax-logo ">
+    <img src="assets/imgs/big-trax.jpg " class="trax-logo-image " />
   </ion-row>
 
 </ion-content>

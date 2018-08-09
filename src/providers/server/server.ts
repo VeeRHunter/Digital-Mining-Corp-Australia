@@ -7,10 +7,10 @@ import 'rxjs/add/operator/map';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
-let apiurl: string = "http://192.168.2.139/digitalmining/apiserver/";
+// let apiurl: string = "http://192.168.2.139/digitalmining/apiserver/";
 
 
-// let apiurl: string = "http://traxprint.asia/index.php";
+let apiurl: string = "http://traxprint.asia/index.php";
 
 
 @Injectable()

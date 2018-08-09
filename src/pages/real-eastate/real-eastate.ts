@@ -78,6 +78,12 @@ export class RealEastatePage {
 
   findEstateAgent() {
     console.log("findEstateAgent");
+    this.noProperty = false;
+    if (this.equityValue.includes("%")) {
+      this.swichEquity = true;
+    } else {
+      this.swichEquity = false;
+    }
   }
 
 }

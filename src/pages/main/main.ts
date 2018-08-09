@@ -21,6 +21,8 @@ export class MainPage {
   public dailyYield: any;
   public liveFeed: any;
 
+  public realLiveFeed: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -28,15 +30,22 @@ export class MainPage {
     console.log('ionViewDidLoad MainPage');
     this.orgInvestment = 3000000;
     this.dailyYield = 82.19178990;
-    this.liveFeed = this.orgInvestment + this.dailyYield;
+    this.realLiveFeed = this.orgInvestment + this.dailyYield;
+    this.liveFeed = this.changeToDecimal(this.orgInvestment + this.dailyYield);
+    // console.log(this.orgInvestment.toFixed(2));
     this.calculateLiveFeed();
   }
 
   calculateLiveFeed() {
     setTimeout(() => {
-      this.liveFeed = this.liveFeed + this.dailyYield / 24 / 60 / 60;
+      this.realLiveFeed = this.realLiveFeed + this.dailyYield / 24 / 60 / 60;
+      this.liveFeed = this.changeToDecimal(this.realLiveFeed);
       this.calculateLiveFeed();
     }, 1000);
+  }
+
+  changeToDecimal(inputData) {
+    return parseFloat(inputData).toFixed(2);
   }
 
   liveFeedCall() {

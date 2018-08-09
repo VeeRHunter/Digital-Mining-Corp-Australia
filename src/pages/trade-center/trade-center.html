@@ -82,7 +82,7 @@
         <ion-col col-5>
           <ion-row class="full-height">
             <span>
-              {{currentMV}}
+              ${{currentMV}}
             </span>
           </ion-row>
         </ion-col>
@@ -144,7 +144,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-row class="trade-detail" id="inputEquity" >
+  <ion-row class="trade-detail" id="inputEquity">
     <ion-col col-6>
       <ion-row class="full-height">
         <span>
@@ -156,7 +156,7 @@
       <ion-row [ngClass]="{'edit-equity': showEditEquityValue, 'show-equity': !showEditEquityValue}">
         <mat-form-field>
           <span matPrefix>$</span>
-          <input type="number" (focus)="focusOnEquityValue()" (focusout)="focusOutEquityValue()" [(ngModel)]="equitySwapValue"
+          <input type="number" max="{{swapMax}}" (focus)="focusOnEquityValue()" (focusout)="focusOutEquityValue()" [(ngModel)]="equitySwapValue"
             matInput>
         </mat-form-field>
       </ion-row>
@@ -173,7 +173,7 @@
     </ion-col>
     <ion-col col-6>
       <ion-row class="full-height">
-        <span class="">{{equityPercent}}</span>
+        <span class="">{{((equitySwapValue/currentMV)*100).toFixed(2)}}%</span>
       </ion-row>
     </ion-col>
   </ion-row>
@@ -182,7 +182,7 @@
     <ion-col col-2></ion-col>
     <ion-col col-5>
       <ion-row class="full-height">
-        <span>
+        <span (click)="confirmTrade()" >
           CONFIRM TRADE
         </span>
       </ion-row>
@@ -218,7 +218,7 @@
       <ion-col col-3>
         <ion-row class="full-height">
           <span class="right-element">
-            {{balanceEquityValue}}
+            {{(100-(equitySwapValue/currentMV)*100).toFixed(2)}}%
           </span>
         </ion-row>
       </ion-col>

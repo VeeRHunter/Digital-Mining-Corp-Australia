@@ -38,7 +38,7 @@ export class InitialLoginPage {
     Validators.required
   ]);
 
-  public userData = { "email": "", "password": "", "apiState": "forgotPass" };
+  public userData = { "email": "", "password": "", "apiState": "initialLogin" };
 
   public countryList = ["Australia", "United State"];
   public uniqueList = ["unique1", "unique2"];

@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, ModalController, LoadingController, ToastController } from 'ionic-angular';
+import { ConfirmModalPage } from '../confirm-modal/confirm-modal';
+import { ServerProvider } from '../../providers/server/server';
 
 /**
  * Generated class for the TradeCenterPage page.
@@ -36,22 +38,25 @@ export class TradeCenterPage {
   public balanceEquityValue: any;
   public dmcShareValue: any;
 
+  public swapMax: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController,
+    public loadingCtrl: LoadingController, public toastCtrl: ToastController, public apiserver: ServerProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TradeCenterPage');
     this.smallPageTitle = "FREE HOLD";
     this.addressName = "4 Ellis Place, mountain creek, QUEENSLAND 4557";
-    this.currentMV = "$360000";
+    this.currentMV = (360000).toFixed(2);
     // this.equityValue = "$200000";
     // this.debtValue = "$160000";
     // this.swapsValue = "0.00%";
     this.buildingImage = "assets/imgs/house.jpg";
     this.noProperty = true;
-    this.equityPercent = "10.00%";
-    this.balanceEquityValue = "90%";
+    this.equityPercent = (10.00).toFixed(2);
+    this.balanceEquityValue = (90).toFixed(2);
     if (localStorage.getItem("tradeType") == "buy") {
       this.jointlyOwned = true;
       this.smallPageTitle = "FREE HOLD";
@@ -65,12 +70,13 @@ export class TradeCenterPage {
       this.debtValue = "$160000";
       this.debtTitle = "Debt Balance";
     }
-    this.equitySwapValue = this.currentMV.replace("$", "");
+    this.equitySwapValue = (parseFloat(this.currentMV) * 0.95).toFixed(2);
     if (this.equityValue.includes("%")) {
       this.swichEquity = true;
     } else {
       this.swichEquity = false;
     }
+    this.swapMax = (parseFloat(this.currentMV) * 0.95).toFixed(2);
   }
 
   focusOnEquityValue() {
@@ -86,6 +92,7 @@ export class TradeCenterPage {
 
   focusOutEquityValue() {
     console.log("focusOutEquityValue");
+    this.equitySwapValue = parseFloat(this.equitySwapValue).toFixed(2);
     this.showEditEquityValue = false;
   }
 
@@ -99,6 +106,21 @@ export class TradeCenterPage {
 
   goback() {
     this.navCtrl.pop();
+  }
+
+  confirmTrade() {
+    let modal = this.modalCtrl.create(ConfirmModalPage);
+    modal.onDidDismiss(data => {
+      console.log(data);
+      if (data == "success") {
+        let toast = this.toastCtrl.create({
+          message: "Success Confirm",
+          duration: 3000
+        });
+        toast.present();
+      }
+    });
+    modal.present();
   }
 
 }

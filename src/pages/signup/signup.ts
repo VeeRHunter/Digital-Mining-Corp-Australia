@@ -43,11 +43,24 @@ export class SignupPage {
 
   public clickSignUp = false;
 
+  public switchUnique = true;
+  public uniquePlace: any;
+
+  public yearList: any[];
+  public currentYear: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public loadingCtrl: LoadingController, public apiserver: ServerProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
+    this.uniquePlace = "Unique Field";
+    this.yearList = new Array();
+    this.currentYear = parseInt(new Date().toLocaleDateString().split("/")[2]);
+    for (let i = 1950; i < this.currentYear + 1; i++) {
+      this.yearList.push(i);
+    }
+    console.log(this.yearList);
   }
 
   signUpUser(userProfile) {
@@ -92,6 +105,20 @@ export class SignupPage {
   clickDOB() {
     console.log("asdfasdfasdf");
     window.scrollTo(0, 0);
+  }
+
+  selectCountry() {
+    if (this.userData.country == "United State") {
+      this.uniquePlace = "Social Security Number";
+    }
+    else if (this.userData.country == "Australia") {
+      this.uniquePlace = "Tax File Number";
+    }
+    else {
+      this.uniquePlace = "Unique Field";
+    }
+    console.log(this.userData.country);
+    console.log(this.switchUnique);
   }
 
 }

@@ -41,6 +41,7 @@ import { InitialLoginPage } from '../pages/initial-login/initial-login';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
 import { ServerProvider } from '../providers/server/server';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
+import { ConfirmModalPage } from '../pages/confirm-modal/confirm-modal';
 
 
 
@@ -60,6 +61,7 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
     TradeCenterPage,
     InitialLoginPage,
     ForgotPasswordPage,
+    ConfirmModalPage,
   ],
   imports: [
     BrowserModule,
@@ -85,6 +87,7 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
     TradeCenterPage,
     InitialLoginPage,
     ForgotPasswordPage,
+    ConfirmModalPage,
   ],
   providers: [
     StatusBar,

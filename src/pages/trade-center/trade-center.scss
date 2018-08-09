@@ -89,6 +89,11 @@ page-trade-center {
     .enter-volume-title {
         span {
             font-size: 1.6rem;
+            text-align: left !important;
+            margin-left: 0px;
+        }
+        ion-col{
+            padding: 0;
         }
     }
     .right-element {
@@ -115,7 +120,7 @@ page-trade-center {
         }
     }
     .confirm-part {
-        margin-top: 10px;
+        margin-top: 25px;
         margin-bottom: 10px;
         span {
             font-size: 2rem;

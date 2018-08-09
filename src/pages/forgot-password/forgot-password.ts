@@ -46,6 +46,7 @@ export class ForgotPasswordPage {
     }
     if (localStorage.getItem("confirmType") == "confirm") {
       localStorage.setItem("confirmType", "back");
+      this.sendRequest = true;
     }
   }
 

@@ -58,16 +58,29 @@
       </mat-form-field>
     </ion-row>
 
-    <ion-row class="user-input-row">
-      <mat-form-field class="example-full-width">
-        <!-- <input matInput [matDatepicker]="picker" type="date" placeholder="Date Of Birth" [(ngModel)]="userData.DOB" required name="dob">
+    <ion-row class="user-input-row user-input-dob">
+      <!-- <mat-form-field class="example-full-width"> -->
+      <!-- <input matInput [matDatepicker]="picker" type="date" placeholder="Date Of Birth" [(ngModel)]="userData.DOB" required name="dob">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker  id="matDatePicker"></mat-datepicker> -->
-        <input matInput type="date" placeholder="Date Of Birth" [(ngModel)]="userData.DOB" required name="dob">
-        <mat-error>
+        <mat-datepicker #picker  id="matDatePicker"></mat-datepicker>
+      <input matInput type="date" min="2016" max="2020-10-31" placeholder="Date Of Birth" [(ngModel)]="userData.DOB" required name="dob">
+
+      <mat-error>
           Date Of Birth is required.
         </mat-error>
-      </mat-form-field>
+      </mat-form-field> -->
+
+      <ion-col col-12>
+        <ion-row class="full-height">
+          <ion-datetime displayFormat="MM/DD/YYYY" min="1950" max="2018" yearValues="{{yearList}}" placeholder="Date Of Birth" [(ngModel)]="userData.DOB" required name="dob">
+          </ion-datetime>
+        </ion-row>
+      </ion-col>
+
+      <ion-row class="mat-error-show" *ngIf="clickSignUp && userData.DOB == ''">
+        Date Of Birth is required.
+      </ion-row>
+
     </ion-row>
 
     <ion-row class="user-input-row">
@@ -100,7 +113,7 @@
     <ion-row class="user-input-row">
       <mat-form-field class="example-full-width">
         <mat-select [(ngModel)]="userData.country" placeholder="Country" required name="country">
-          <mat-option *ngFor="let list of countryList" [value]="list">
+          <mat-option *ngFor="let list of countryList" [value]="list" (click)="selectCountry()">
             {{ list }}
           </mat-option>
         </mat-select>
@@ -123,11 +136,7 @@
 
     <ion-row class="user-input-row">
       <mat-form-field class="example-full-width">
-        <mat-select [(ngModel)]="userData.uniqueField" placeholder="Unique Field" required name="uniquefield">
-          <mat-option *ngFor="let list of uniqueList" [value]="list">
-            {{ list }}
-          </mat-option>
-        </mat-select>
+        <input matInput [(ngModel)]="userData.uniqueField" placeholder="{{uniquePlace}}" required name="uniquefield">
 
         <mat-error>
           Unique Field is required.
@@ -149,9 +158,6 @@
       <mat-form-field class="example-full-width">
         <input matInput type="password" [formControl]="rePasswordControl" placeholder="Re-enter password" [(ngModel)]="userData.repassword"
           required name="repassword">
-        <!-- <mat-error >
-          Confirm Password is required.
-        </mat-error> -->
 
         <ion-row class="mat-error-show" *ngIf="(userData.password != userData.repassword && userData.repassword != '') || (userData.repassword == '' && clickSignUp)">
           Password Mismatch.

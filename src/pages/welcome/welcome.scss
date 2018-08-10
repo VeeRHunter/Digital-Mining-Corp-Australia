@@ -11,25 +11,25 @@ page-welcome {
             margin: auto;
             font-size: 1.8rem;
         }
-        .big-des{
+        .big-des {
             width: 100%;
             text-align: center;
             margin: auto;
             font-size: 2.5rem;
         }
     }
-    .vault-row{
+    .vault-row {
         margin-top: 20px;
-        img{
+        img {
             width: 50%;
             height: 100%;
             margin: auto;
         }
     }
-
-    .log-des{
+    .log-des {
         margin-top: 20px;
-        span{
+        margin-bottom: 20px;
+        span {
             color: #6e6e6e;
             width: 70%;
             font-size: 1.5rem;
@@ -37,57 +37,45 @@ page-welcome {
             margin: auto;
         }
     }
-
-    .identy-row{
+    .identy-row {
         width: 80%;
-        margin-top: 20px;
+        margin-bottom: 20px;
         margin-left: auto;
         margin-right: auto;
         background-color: red;
         color: white;
         height: 35px;
-        span{
+        span {
             font-size: 2rem;
             margin: auto;
+            padding: 2px 5px;
         }
     }
-    .log-off-row{
-        margin-top: 20px;
-        button{
-            width: 35%;
-            background-color: #24bacc;
-            color: white;
-            margin: auto;
-            border-radius: 7px;
-            margin-bottom: 20px;
-        }
-    }
-    .portfolio-row{
+    .portfolio-row {
         width: 110%;
         margin-left: -5%;
         background-color: #ed7d31;
         height: 30px;
-        span{
+        span {
             margin: auto;
             text-align: center;
             color: white;
             font-size: 1.8rem;
         }
     }
-
-    .four-part-row{
+    .four-part-row {
         margin-top: 20px;
         width: 80%;
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 30px;
-        .top-part-row{
+        .top-part-row {
             border-bottom: 1px solid #dc9974;
         }
-        .left-border{
+        .left-border {
             border-left: 1px solid #dc9974;
         }
-        span{
+        span {
             margin: auto;
             text-align: center;
             font-size: 1.6rem;

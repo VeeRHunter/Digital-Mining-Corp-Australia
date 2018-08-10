@@ -38,35 +38,29 @@
 
 
   <ion-row class="building-image-row">
-    <ion-col col-10>
+
+    <ion-col col-12>
       <ion-row class="full-height">
         <img src="{{buildingImage}}" />
       </ion-row>
     </ion-col>
-    <ion-col col-2>
-      <ion-row class="full-height">
-        <ion-icon name="ios-arrow-forward">
-        </ion-icon>
-      </ion-row>
-    </ion-col>
+
   </ion-row>
 
   <ion-row class="padding-row">
     <ion-row class="build-des-row">
-      <ion-col col-8>
+      <ion-col col-12>
         <ion-row class="full-height">
           <span>
-            {{addressName}}
+            {{addressName}}, {{propertyCity}}
+            <br>{{propertyState}}
+            <br>{{propertyPostcode}} {{propertyCountry}}
           </span>
         </ion-row>
       </ion-col>
-      <ion-col col-4 *ngIf="jointlyOwned">
-        <ion-row class="full-height">
-          <span class="jointly-owned" (click)="jointlyBuilding()">
-            Jointly Owned
-          </span>
-        </ion-row>
-      </ion-col>
+      <span class="jointly-owned" *ngIf="switchjointly">
+        Jointly Owned
+      </span>
     </ion-row>
 
     <ion-row class="bulding-price">
@@ -106,11 +100,11 @@
         </ion-col>
       </ion-row>
 
-      <ion-row class="each-price-row">
+      <ion-row class="each-price-row" *ngIf="switchMortgage">
         <ion-col col-7>
           <ion-row class="full-height">
             <span>
-              {{debtTitle}}
+              Debt Balance
             </span>
           </ion-row>
         </ion-col>
@@ -129,7 +123,7 @@
 
   <ion-row class="trade-desk">
     <span>
-      Trade Desk
+      {{tradeTypeTitle}}
     </span>
   </ion-row>
 
@@ -182,8 +176,8 @@
     <ion-col col-2></ion-col>
     <ion-col col-5>
       <ion-row class="full-height">
-        <span (click)="confirmTrade()" >
-          CONFIRM TRADE
+        <span (click)="confirmTrade()">
+          {{confirmTypeTitle}}
         </span>
       </ion-row>
     </ion-col>

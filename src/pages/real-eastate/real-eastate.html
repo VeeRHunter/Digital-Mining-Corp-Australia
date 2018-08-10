@@ -51,7 +51,7 @@
   </ion-row>
 
   <ion-row *ngIf="!noProperty">
-    <ion-row class="building-image-row">
+    <ion-row class="building-image-row" *ngIf="!switchArrow">
       <ion-col col-10>
         <ion-row class="full-height">
           <img src="{{buildingImage}}" />
@@ -59,28 +59,41 @@
       </ion-col>
       <ion-col col-2>
         <ion-row class="full-height">
-          <ion-icon name="ios-arrow-forward">
+          <ion-icon name="ios-arrow-forward" (click)="clickNext()">
           </ion-icon>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="building-image-row" *ngIf="switchArrow">
+      <ion-col col-2>
+        <ion-row class="full-height">
+          <ion-icon name="ios-arrow-back" (click)="clickBefore()">
+          </ion-icon>
+        </ion-row>
+      </ion-col>
+
+      <ion-col col-10>
+        <ion-row class="full-height">
+          <img src="{{buildingImage}}" />
         </ion-row>
       </ion-col>
     </ion-row>
 
     <ion-row class="padding-row">
       <ion-row class="build-des-row">
-        <ion-col col-8>
+        <ion-col col-12>
           <ion-row class="full-height">
             <span>
-              {{addressName}}
+              {{addressName}}, {{propertyCity}}
+              <br>{{propertyState}}
+              <br>{{propertyPostcode}} {{propertyCountry}}
             </span>
           </ion-row>
         </ion-col>
-        <ion-col col-4>
-          <ion-row class="full-height">
-            <span class="jointly-owned" (click)="jointlyBuilding()">
-              Jointly Owned
-            </span>
-          </ion-row>
-        </ion-col>
+        <span class="jointly-owned" *ngIf="switchjointly">
+          Jointly Owned
+        </span>
       </ion-row>
 
       <ion-row class="bulding-price">
@@ -113,18 +126,18 @@
 
           <ion-col col-5>
             <ion-row class="full-height">
-              <span [ngClass]="{'normal-value': swichEquity,'equity-value':!swichEquity }">
+              <span class="equity-value">
                 {{equityValue}}
               </span>
             </ion-row>
           </ion-col>
         </ion-row>
 
-        <ion-row class="each-price-row">
+        <ion-row class="each-price-row" *ngIf="switchMortgage">
           <ion-col col-7>
             <ion-row class="full-height">
               <span>
-                {{debtTitle}}
+                Debt Balance
               </span>
             </ion-row>
           </ion-col>
@@ -156,17 +169,65 @@
           </ion-col>
         </ion-row>
 
+        <!-- <ion-row class="each-price-row">
+          <ion-col col-12>
+            <ion-row class="full-height">
+              <span>
+                Pending Equity Swap
+              </span>
+            </ion-row>
+          </ion-col>
+        </ion-row> -->
+
+
+        <ion-row class="each-price-row">
+          <ion-col col-7>
+            <ion-row class="full-height">
+              <span>
+                Pending Share Buy
+              </span>
+            </ion-row>
+          </ion-col>
+
+          <ion-col col-5>
+            <ion-row class="full-height">
+              <span>
+                {{pendingShareBuy}}
+              </span>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+
+
+        <ion-row class="each-price-row">
+          <ion-col col-7>
+            <ion-row class="full-height">
+              <span>
+                Pending Share Sell
+              </span>
+            </ion-row>
+          </ion-col>
+
+          <ion-col col-5>
+            <ion-row class="full-height">
+              <span>
+                {{pendingShareSell}}
+              </span>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+
       </ion-row>
     </ion-row>
   </ion-row>
 
-  <ion-row class="trade-centre">
+  <ion-row class="trade-centre" *ngIf="!noProperty">
     <span (click)="gotoRealEstate()">
       Trade Centre
     </span>
   </ion-row>
 
-  <ion-row class="buy-sell-row">
+  <ion-row class="buy-sell-row" *ngIf="!noProperty">
     <ion-col col-4>
       <ion-row class="full-height">
         <span class="invest-buy" (click)="clickBuy()">
@@ -176,13 +237,13 @@
     </ion-col>
 
     <ion-col col-4>
-      <ion-row class="full-height">
+      <ion-row class="full-height" *ngIf="!noProperty">
         <img class="finger-image" src="assets/imgs/finger.png" />
       </ion-row>
     </ion-col>
 
     <ion-col col-4>
-      <ion-row class="full-height">
+      <ion-row class="full-height" *ngIf="!noProperty">
         <span class="invest-sell" (click)="clickSell()">
           SELL
         </span>
@@ -190,10 +251,10 @@
     </ion-col>
   </ion-row>
 
-  <ion-row class="access-code">
+  <!-- <ion-row class="access-code">
     <button mat-raised-button (click)="accessCode()">
       ACCESS CODE
     </button>
-  </ion-row>
+  </ion-row> -->
 
 </ion-content>

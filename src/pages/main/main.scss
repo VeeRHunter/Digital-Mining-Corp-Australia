@@ -32,6 +32,8 @@ page-main {
         span {
             font-size: 1.7rem;
             padding-left: 5%;
+            margin-top: auto;
+            margin-bottom: auto;
         }
     }
     .daily-yield {
@@ -44,6 +46,8 @@ page-main {
             color: #efa960;
             font-size: 1.7rem;
             padding-left: 5%;
+            margin-top: auto;
+            margin-bottom: auto;
         }
     }
     .live-feed {
@@ -68,14 +72,12 @@ page-main {
     }
     .trade-centre {
         margin-top: 40px;
-        width: 110%;
-        margin-left: -5%;
-        border-top: 1px solid #f5ba91;
-        border-bottom: 1px solid #f5ba91;
-        padding: 5px 0px;
-        span {
-            font-size: 2rem;
-            text-align: center;
+        margin-bottom: 30px;
+        button {
+            font-size: 1.8rem;
+            width: 50%;
+            color: white;
+            background-color: #2a35e6;
             margin: auto;
         }
     }

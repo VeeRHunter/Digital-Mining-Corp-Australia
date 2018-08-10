@@ -42,6 +42,7 @@ import { HttpClientModule } from '../../node_modules/@angular/common/http';
 import { ServerProvider } from '../providers/server/server';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { ConfirmModalPage } from '../pages/confirm-modal/confirm-modal';
+import { IdVerifyPage } from '../pages/id-verify/id-verify';
 
 
 
@@ -62,6 +63,7 @@ import { ConfirmModalPage } from '../pages/confirm-modal/confirm-modal';
     InitialLoginPage,
     ForgotPasswordPage,
     ConfirmModalPage,
+    IdVerifyPage,
   ],
   imports: [
     BrowserModule,
@@ -88,6 +90,7 @@ import { ConfirmModalPage } from '../pages/confirm-modal/confirm-modal';
     InitialLoginPage,
     ForgotPasswordPage,
     ConfirmModalPage,
+    IdVerifyPage,
   ],
   providers: [
     StatusBar,

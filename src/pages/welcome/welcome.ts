@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { RealEastatePage } from '../real-eastate/real-eastate';
 import { AccountPage } from '../account/account';
@@ -7,6 +7,8 @@ import { SmsfPage } from '../smsf/smsf';
 import { EascrowPage } from '../eascrow/eascrow';
 import { MainPage } from '../main/main';
 import { InitialLoginPage } from '../initial-login/initial-login';
+import { IdVerifyPage } from '../id-verify/id-verify';
+import { ServerProvider } from '../../providers/server/server';
 
 /**
  * Generated class for the WelcomePage page.
@@ -28,14 +30,57 @@ export class WelcomePage {
 
   public lastLoginUserName = "";
   public lastLoginTime = "";
+  public userVerified = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public userData = { "email": "", "apiState": "gerUserDetail" };
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public apiserver: ServerProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WelcomePage');
-    this.lastLoginUserName = localStorage.getItem("lastLoginName");
-    this.lastLoginTime = localStorage.getItem("lastLoginTime");
+    if (localStorage.getItem("afterLogin") == "login") {
+      this.lastLoginUserName = localStorage.getItem("lastLoginName");
+      this.lastLoginTime = localStorage.getItem("lastLoginTime");
+      localStorage.setItem("afterLogin", "");
+      if (localStorage.getItem("userVerified") == "0") {
+        this.userVerified = false;
+      } else if (localStorage.getItem("userVerified") == "1") {
+        this.userVerified = true;
+      }
+    } else {
+      this.getData();
+    }
+  }
+
+  getData() {
+    this.userData.email = localStorage.getItem("useremail");
+    let loading = this.loadingCtrl.create({
+      content: "Please Wait..."
+    });
+    loading.present();
+    this.apiserver.postData(this.userData).then(result => {
+      loading.dismiss();
+      console.log(result);
+      if (Object(result).status == "success") {
+        this.lastLoginTime = Object(result).lastLoginTime;
+        this.lastLoginUserName = Object(result).lastLoginName;
+        this.userVerified = Object(result).userVerified;
+      } else {
+        let toast = this.toastCtrl.create({
+          message: Object(result).detail,
+          duration: 2000
+        });
+        toast.present();
+      }
+    }, error => {
+      loading.dismiss();
+      let toast = this.toastCtrl.create({
+        message: "No Network",
+        duration: 2000
+      });
+      toast.present();
+    })
   }
 
   logOff() {
@@ -53,6 +98,11 @@ export class WelcomePage {
   }
   gotoEscrow() {
     this.navCtrl.push(EascrowPage);
+  }
+
+  verifyId() {
+    localStorage.setItem("verifyType", "idVerify");
+    this.navCtrl.push(IdVerifyPage);
   }
 
 }

@@ -44,17 +44,17 @@
     </span>
   </ion-row>
 
-  <ion-row class="identy-row">
-    <span>
+  <ion-row class="identy-row" *ngIf="!userVerified">
+    <span (click)="verifyId()">
       Please verify your identity
     </span>
   </ion-row>
 
-  <ion-row class="log-off-row">
+  <!-- <ion-row class="log-off-row">
     <button mat-raised-button (click)="logOff()">
       Log off
     </button>
-  </ion-row>
+  </ion-row> -->
 
   <ion-row class="portfolio-row">
     <span>

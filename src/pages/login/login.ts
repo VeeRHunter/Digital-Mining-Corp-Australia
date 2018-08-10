@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController, Content, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController, Content, Platform, MenuController } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { WelcomePage } from '../welcome/welcome';
 import { ServerProvider } from '../../providers/server/server';
 import { FingerprintAIO, FingerprintOptions } from '../../../node_modules/@ionic-native/fingerprint-aio';
+import { InitialLoginPage } from '../initial-login/initial-login';
 
 /**
  * Generated class for the LoginPage page.
@@ -35,7 +36,7 @@ export class LoginPage {
   public monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public menuCtrl: MenuController
     , public loadingCtrl: LoadingController, public apiserver: ServerProvider, public platform: Platform, public fingerAuth: FingerprintAIO) {
   }
 
@@ -47,14 +48,38 @@ export class LoginPage {
     };
     console.log('ionViewDidLoad LoginPage');
     this.userData.email = localStorage.getItem("useremail");
+    this.menuCtrl.swipeEnable(false);
+    // this.getLastLoginTime();
+  }
+
+  ionViewWillLeave() {
+    this.menuCtrl.swipeEnable(true);
   }
 
   getLastLoginTime() {
-    let localTime = new Date().toLocaleTimeString();
-    let weekDay = new Date().getDay();
-    let dateTime = new Date().toLocaleDateString();
-    let timeZoon = new Date().toTimeString();
-    this.lastLoginTime = localTime.split(" ")[0].split(":")[0] + ":" + localTime.split(" ")[0].split(":")[1] + localTime.split(" ")[1].toLocaleLowerCase() + " On " + this.weekName[weekDay] + " " + dateTime.split("/")[1] + " " + this.monthNames[parseInt(dateTime.split("/")[0]) - 1] + " " + dateTime.split("/")[2] + " (" + timeZoon.split(" ")[1] + ")";
+    console.log(new Date().toString());
+    let currentDateTime = new Date().toString();
+    let currentTime = "";
+    let currentDate = "";
+    let currentTimeZoon = "";
+    // Fri Aug 10 2018 09:59:10 GMT+0700 (Novosibirsk Standard Time)
+    if (parseInt(currentDateTime.split(" ")[4].split(":")[0]) > 12) {
+      currentTime = (parseInt(currentDateTime.split(" ")[4].split(":")[0]) - 12) + ":" + currentDateTime.split(" ")[4].split(":")[1] + " pm On ";
+    } else {
+      currentTime = currentDateTime.split(" ")[4].split(":")[0] + ":" + currentDateTime.split(" ")[4].split(":")[1] + " am On ";
+    }
+    for (let list of this.weekName) {
+      if (list.includes(currentDateTime.split(" ")[0])) {
+        currentDate = list + " " + currentDateTime.split(" ")[2];
+      }
+    }
+    for (let list of this.monthNames) {
+      if (list.includes(currentDateTime.split(" ")[1])) {
+        currentDate = currentDate + " " + list + " " + currentDateTime.split(" ")[3];
+      }
+    }
+    currentTimeZoon = " (" + currentDateTime.split(" ")[5] + ")";
+    this.lastLoginTime = currentTime + currentDate + currentTimeZoon;
     console.log(this.lastLoginTime);
     this.userData.lastLoginTime = this.lastLoginTime;
   }
@@ -148,6 +173,8 @@ export class LoginPage {
         if (Object(result).status == "success") {
           localStorage.setItem("lastLoginName", Object(result).username);
           localStorage.setItem("lastLoginTime", Object(result).lastLoginTime);
+          localStorage.setItem("userVerified", Object(result).userVerified.toString());
+          localStorage.setItem("afterLogin", "login");
           this.navCtrl.setRoot(WelcomePage);
         } else {
           let toast = this.toastCtrl.create({
@@ -199,6 +226,8 @@ export class LoginPage {
             if (Object(result).status == "success") {
               localStorage.setItem("lastLoginName", Object(result).username);
               localStorage.setItem("lastLoginTime", Object(result).lastLoginTime);
+              localStorage.setItem("userVerified", Object(result).userVerified.toString());
+              localStorage.setItem("afterLogin", "login");
               this.navCtrl.setRoot(WelcomePage);
             } else {
               let toast = this.toastCtrl.create({
@@ -228,6 +257,11 @@ export class LoginPage {
       console.error(error);
     }
 
+  }
+
+  logOff() {
+    localStorage.setItem("loged", "");
+    this.navCtrl.setRoot(InitialLoginPage);
   }
 
 }

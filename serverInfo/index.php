@@ -352,6 +352,31 @@
 				exit;
 			}
 		}
+		else if($apistate == "gerUserDetail"){
+			$email = $request->email;
+			
+			$sel = "SELECT * FROM userinfo";
+			$query = mysqli_query($con, $sel);
+			if(!$query){
+				echo json_encode(['status'=>'fail', 'detail'=>'Database is not exist']);
+				exit;
+			} else {
+				while($row = mysqli_fetch_array($query)){
+					if($row['user_email'] == $email){
+					    $userVerified = true;
+					    if($row['user_verified'] == 0){
+					        $userVerified = false;
+					    } else {
+					        $userVerified = true;
+					    }
+						echo json_encode(['status'=>'success', 'email'=>$email, 'lastLoginName'=>$row['user_fname'].' '.$row['user_lname'], 'lastLoginTime'=>$row['user_lastLogin'], 'userVerified'=> $userVerified]);
+						exit;
+					}
+				}
+				echo json_encode(['status'=>'fail', 'detail'=>'You are not registered yet']);
+				exit;
+			}
+		}
 	}
 
 

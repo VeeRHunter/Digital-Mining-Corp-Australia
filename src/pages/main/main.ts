@@ -4,6 +4,7 @@ import { RealEastatePage } from '../real-eastate/real-eastate';
 import { TradeCenterPage } from '../trade-center/trade-center';
 import { ServerProvider } from '../../providers/server/server';
 import { NoopScrollStrategy } from '../../../node_modules/@angular/cdk/overlay';
+import { TransactionPage } from '../transaction/transaction';
 
 /**
  * Generated class for the MainPage page.
@@ -118,6 +119,11 @@ export class MainPage {
 
   gotoRealEstate() {
     this.navCtrl.push(RealEastatePage);
+  }
+
+  gotoTransaction() {
+    localStorage.setItem("originalInvestment", this.orgInvestment);
+    this.navCtrl.push(TransactionPage);
   }
 
 }

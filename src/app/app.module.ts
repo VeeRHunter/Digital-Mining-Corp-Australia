@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 import { HttpModule, Http } from '@angular/http';
@@ -43,6 +44,10 @@ import { ServerProvider } from '../providers/server/server';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { ConfirmModalPage } from '../pages/confirm-modal/confirm-modal';
 import { IdVerifyPage } from '../pages/id-verify/id-verify';
+import { TransactionDetailPage } from '../pages/transaction-detail/transaction-detail';
+import { TransactionPage } from '../pages/transaction/transaction';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { EmailConfirmPage } from '../pages/email-confirm/email-confirm';
 
 
 
@@ -64,6 +69,9 @@ import { IdVerifyPage } from '../pages/id-verify/id-verify';
     ForgotPasswordPage,
     ConfirmModalPage,
     IdVerifyPage,
+    TransactionDetailPage,
+    TransactionPage,
+    EmailConfirmPage,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +79,7 @@ import { IdVerifyPage } from '../pages/id-verify/id-verify';
     BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,
-    MatInputModule, MatButtonModule, MatChipsModule, MatIconModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule
+    MatInputModule, MatButtonModule, MatChipsModule, MatIconModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -91,6 +99,9 @@ import { IdVerifyPage } from '../pages/id-verify/id-verify';
     ForgotPasswordPage,
     ConfirmModalPage,
     IdVerifyPage,
+    TransactionDetailPage,
+    TransactionPage,
+    EmailConfirmPage,
   ],
   providers: [
     StatusBar,
@@ -99,6 +110,7 @@ import { IdVerifyPage } from '../pages/id-verify/id-verify';
     FingerprintAIO,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ServerProvider,
+    InAppBrowser,
   ]
 })
 export class AppModule { }

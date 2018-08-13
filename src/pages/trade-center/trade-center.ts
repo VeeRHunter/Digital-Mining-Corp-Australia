@@ -163,7 +163,7 @@ export class TradeCenterPage {
   getTradeItem() {
 
     if (localStorage.getItem("tradeType") == "buy") {
-      this.tradeTypeTitle = "Trade Dest Buy";
+      this.tradeTypeTitle = "Trade Desk Buy";
       this.confirmTypeTitle = "Confirm Buy";
       this.switchTrade = true;
     } else if (localStorage.getItem("tradeType") == "sell") {
@@ -209,7 +209,7 @@ export class TradeCenterPage {
     this.swapsValue = currentItem.eq_share_swap + "%";
     this.pendingShareBuy = currentItem.pending_share_buy + "%";
     this.pendingShareSell = currentItem.pending_share_sell + "%";
-    this.equitySwapValue = (parseFloat(this.currentMV) * 0.95).toFixed(2);
+    this.equitySwapValue = (0.00).toFixed(2);
     this.swapMax = (parseFloat(this.currentMV) * 0.95).toFixed(2);
     console.log(currentItem);
   }

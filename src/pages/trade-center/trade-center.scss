@@ -172,4 +172,20 @@ page-trade-center {
             color: black;
         }
     }
+    .pending-row{
+        margin-bottom: 10px;
+        button{
+            margin: auto;
+            background-color: #4472c4;
+            border: 1px solid #40598d;
+            color: white;
+            height: 35px;
+            line-height: 30px;
+        }
+        .pending-value{
+            margin-top: auto;
+            margin-bottom: auto;
+            font-size: 2rem;
+        }
+    }
 }

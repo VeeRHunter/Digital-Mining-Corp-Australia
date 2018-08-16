@@ -47,6 +47,8 @@ export class RealEastatePage {
   public currentIndex: any;
   public totalData: any[];
 
+  public pendingData = { "customer_id": "", "id": "", "pending_value": "", "property_id": "", "transaction_document": "", "transaction_timestamp": "", "transaction_type": "" };
+  public pendingList: any[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public apiserver: ServerProvider) {
   }
@@ -61,6 +63,7 @@ export class RealEastatePage {
 
   getRealEstate() {
     this.totalData = new Array();
+    this.pendingList = Array();
     this.userData.email = localStorage.getItem("useremail");
     let loading = this.loadingCtrl.create({
       content: "Please Wait..."
@@ -73,6 +76,9 @@ export class RealEastatePage {
         this.noProperty = false;
         for (let list of Object(result).realEstate) {
           this.totalData.push(list);
+        }
+        for (let list of Object(result).pendingList) {
+          this.pendingList.push(list);
         }
         this.getNextItem();
       } else {
@@ -100,6 +106,31 @@ export class RealEastatePage {
     console.log("clickBuy");
     localStorage.setItem("tradeType", "buy");
     localStorage.setItem("tradeItem", JSON.stringify(this.totalData[this.currentIndex]));
+
+    let currentItem = this.totalData[this.currentIndex];
+
+    let changedValue = false;
+
+    for (let list of this.pendingList) {
+      if (currentItem.id == list.property_id && list.transaction_type == "Buy Shares") {
+        this.pendingData.customer_id = list.customer_id;
+        this.pendingData.id = list.id;
+        this.pendingData.pending_value = list.pending_value;
+        this.pendingData.property_id = list.property_id;
+        this.pendingData.transaction_document = list.transaction_document;
+        this.pendingData.transaction_timestamp = list.transaction_timestamp;
+        this.pendingData.transaction_type = list.transaction_type;
+        changedValue = true;
+      }
+    }
+
+    if (changedValue) {
+      console.log(this.pendingData);
+      localStorage.setItem("pendingItem", JSON.stringify(this.pendingData));
+    } else {
+      this.pendingData.pending_value = "";
+      localStorage.setItem("pendingItem", JSON.stringify(this.pendingData));
+    }
     this.navCtrl.push(TradeCenterPage);
   }
 
@@ -107,6 +138,30 @@ export class RealEastatePage {
     console.log("clickSell");
     localStorage.setItem("tradeType", "sell");
     localStorage.setItem("tradeItem", JSON.stringify(this.totalData[this.currentIndex]));
+
+    let changedValue = false;
+    let currentItem = this.totalData[this.currentIndex];
+
+    for (let list of this.pendingList) {
+      if (currentItem.id == list.property_id && list.transaction_type == "Sell Shares") {
+        this.pendingData.customer_id = list.customer_id;
+        this.pendingData.id = list.id;
+        this.pendingData.pending_value = list.pending_value;
+        this.pendingData.property_id = list.property_id;
+        this.pendingData.transaction_document = list.transaction_document;
+        this.pendingData.transaction_timestamp = list.transaction_timestamp;
+        this.pendingData.transaction_type = list.transaction_type;
+        changedValue = true;
+      }
+    }
+
+    if (changedValue) {
+      console.log(this.pendingData);
+      localStorage.setItem("pendingItem", JSON.stringify(this.pendingData));
+    } else {
+      this.pendingData.pending_value = "";
+      localStorage.setItem("pendingItem", JSON.stringify(this.pendingData));
+    }
     this.navCtrl.push(TradeCenterPage);
   }
 
@@ -122,6 +177,7 @@ export class RealEastatePage {
 
   getNextItem() {
     let currentItem = this.totalData[this.currentIndex];
+
     if (currentItem.jointly_owned == "1") {
       this.switchjointly = true;
     } else {
@@ -158,7 +214,6 @@ export class RealEastatePage {
     this.swapsValue = currentItem.eq_share_swap + "%";
     this.pendingShareBuy = currentItem.pending_share_buy + "%";
     this.pendingShareSell = currentItem.pending_share_sell + "%";
-    console.log(currentItem);
   }
 
   clickNext() {

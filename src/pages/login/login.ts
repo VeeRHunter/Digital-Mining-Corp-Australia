@@ -49,6 +49,7 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
     this.userData.email = localStorage.getItem("useremail");
     this.menuCtrl.swipeEnable(false);
+    
     // this.getLastLoginTime();
   }
 

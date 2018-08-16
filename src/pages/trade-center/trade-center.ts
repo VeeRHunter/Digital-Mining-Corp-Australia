@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content, ModalController, LoadingController, ToastController } from 'ionic-angular';
 import { ConfirmModalPage } from '../confirm-modal/confirm-modal';
 import { ServerProvider } from '../../providers/server/server';
+import { PendingPage } from '../pending/pending';
 
 /**
  * Generated class for the TradeCenterPage page.
@@ -56,6 +57,9 @@ export class TradeCenterPage {
   public tradeTypeTitle: any;
   public confirmTypeTitle: any;
   public switchTrade: boolean;
+
+  public pendingVlaue: any;
+  public pendingData = 0.0;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController,
@@ -210,12 +214,25 @@ export class TradeCenterPage {
     this.pendingShareBuy = currentItem.pending_share_buy + "%";
     this.pendingShareSell = currentItem.pending_share_sell + "%";
     this.equitySwapValue = (0.00).toFixed(2);
-    this.swapMax = (parseFloat(this.currentMV) * 0.95).toFixed(2);
-    console.log(currentItem);
+    if (JSON.parse(localStorage.getItem("pendingItem")).pending_value != null && JSON.parse(localStorage.getItem("pendingItem")).pending_value != "") {
+      this.pendingData = parseFloat(JSON.parse(localStorage.getItem("pendingItem")).pending_value);
+      if (parseFloat(JSON.parse(localStorage.getItem("pendingItem")).pending_value) > 0) {
+        this.pendingVlaue = "$" + JSON.parse(localStorage.getItem("pendingItem")).pending_value;
+      } else {
+        this.pendingVlaue = "-$" + Math.abs(JSON.parse(localStorage.getItem("pendingItem")).pending_value);
+      }
+      this.swapMax = ((parseFloat(this.currentMV) - this.pendingData) * 0.95).toFixed(2);
+    } else {
+      this.swapMax = (parseFloat(this.currentMV) * 0.95).toFixed(2);
+    }
   }
 
   changeToDecimal(inputData) {
     return parseFloat(inputData).toFixed(2);
+  }
+
+  gotoPendingPage() {
+    this.navCtrl.push(PendingPage);
   }
 
 

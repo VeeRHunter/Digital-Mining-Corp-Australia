@@ -48,6 +48,8 @@ import { TransactionDetailPage } from '../pages/transaction-detail/transaction-d
 import { TransactionPage } from '../pages/transaction/transaction';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { EmailConfirmPage } from '../pages/email-confirm/email-confirm';
+import { PendingPage } from '../pages/pending/pending';
+import { PendingDetailPage } from '../pages/pending-detail/pending-detail';
 
 
 
@@ -72,6 +74,8 @@ import { EmailConfirmPage } from '../pages/email-confirm/email-confirm';
     TransactionDetailPage,
     TransactionPage,
     EmailConfirmPage,
+    PendingPage,
+    PendingDetailPage,
   ],
   imports: [
     BrowserModule,
@@ -102,6 +106,8 @@ import { EmailConfirmPage } from '../pages/email-confirm/email-confirm';
     TransactionDetailPage,
     TransactionPage,
     EmailConfirmPage,
+    PendingPage,
+    PendingDetailPage,
   ],
   providers: [
     StatusBar,

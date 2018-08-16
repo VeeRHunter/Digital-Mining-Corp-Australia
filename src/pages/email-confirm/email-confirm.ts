@@ -48,7 +48,7 @@ export class EmailConfirmPage {
   }
 
   requestSendEmail() {
-    this.userData.pdfURL = JSON.parse(localStorage.getItem("selectedTransaction")).tranPDF;
+    this.userData.pdfURL = localStorage.getItem("pdfURL");
     let loading = this.loadingCtrl.create({
       content: "Please Wait..."
     });

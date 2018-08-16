@@ -5,7 +5,7 @@ import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser'
 import { EmailConfirmPage } from '../email-confirm/email-confirm';
 
 /**
- * Generated class for the TransactionDetailPage page.
+ * Generated class for the PendingDetailPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -13,10 +13,10 @@ import { EmailConfirmPage } from '../email-confirm/email-confirm';
 
 @IonicPage()
 @Component({
-  selector: 'page-transaction-detail',
-  templateUrl: 'transaction-detail.html',
+  selector: 'page-pending-detail',
+  templateUrl: 'pending-detail.html',
 })
-export class TransactionDetailPage {
+export class PendingDetailPage {
 
   public userData = { "email": "", "apiState": "sendPDFFile", "pdfURL": "" };
 
@@ -43,14 +43,19 @@ export class TransactionDetailPage {
     fullscreen: 'yes',//Windows only    
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private iab: InAppBrowser,
-    public loadingCtrl: LoadingController, public toastCtrl: ToastController, public apiserver: ServerProvider, public modalCtrl: ModalController) {
+  public addressName: any;
+  public propertyAddress1: any;
+  public propertyAddress2: any;
+  public propertyCity: any;
+  public propertyState: any;
+  public propertyPostcode: any;
+  public propertyCountry: any;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private iab: InAppBrowser, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public apiserver: ServerProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TransactionDetailPage');
-    console.log(localStorage.getItem("useremail"));
-    console.log(JSON.parse(localStorage.getItem("selectedTransaction")));
+    console.log('ionViewDidLoad PendingDetailPage');
     this.ionicInit();
   }
 
@@ -59,19 +64,31 @@ export class TransactionDetailPage {
   }
 
   ionicInit() {
-    this.transactionData = JSON.parse(localStorage.getItem("selectedTransaction"));
-    this.originalInvestment = localStorage.getItem("originalInvestment");
+    this.transactionData = JSON.parse(localStorage.getItem("selectedPending"));
+    this.originalInvestment = localStorage.getItem("pendingTotal");
     this.userData.email = localStorage.getItem("useremail");
+    let currentItem = JSON.parse(localStorage.getItem("tradeItem"));
+    this.propertyAddress1 = currentItem.property_address1;
+    this.propertyAddress2 = currentItem.property_address2;
+    if (this.propertyAddress2 == "") {
+      this.addressName = this.propertyAddress1;
+    } else {
+      this.addressName = this.propertyAddress1 + " " + this.propertyAddress2;
+    }
+    this.propertyCity = currentItem.property_city;
+    this.propertyState = currentItem.property_state;
+    this.propertyPostcode = currentItem.property_postcode;
+    this.propertyCountry = currentItem.property_country;
   }
 
   viewPDF() {
-    var pdfurl = 'https://docs.google.com/gview?embedded=true&url=' + this.transactionData.tranPDF;
+    var pdfurl = 'https://docs.google.com/gview?embedded=true&url=' + this.transactionData.penPDF;
     let target = "_blank";
     this.iab.create(encodeURI(pdfurl), target, this.options);
   }
 
   emailPDF() {
-    localStorage.setItem("pdfURL", this.transactionData.tranPDF);
+    localStorage.setItem("pdfURL", this.transactionData.penPDF);
     let modal = this.modalCtrl.create(EmailConfirmPage);
     modal.onDidDismiss(data => {
       console.log(data);

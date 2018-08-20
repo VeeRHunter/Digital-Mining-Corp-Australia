@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
-import { LoginPage } from '../login/login';
-import { RealEastatePage } from '../real-eastate/real-eastate';
+// import { LoginPage } from '../login/login';
+// import { RealEastatePage } from '../real-eastate/real-eastate';
 import { AccountPage } from '../account/account';
 import { SmsfPage } from '../smsf/smsf';
 import { EascrowPage } from '../eascrow/eascrow';

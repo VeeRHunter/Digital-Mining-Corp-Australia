@@ -154,18 +154,23 @@ ion-row {
     }
 }
 
+// .each-property-row {
+//     .mat-focus {
+//         // color: rgba(0, 0, 0, 0) !important;
+//         opacity: 0 !important;
+//     }
+// }
+/* To remove the default underline */
 
+.each-property-row .mat-input-underline.mat-form-field-underline {
+    background: transparent;
+}
 
+/* To remove the underline ripple */
 
-
-
-
-
-
-
-
-
-
+.each-property-row .mat-input-ripple.mat-form-field-ripple {
+    background-color: transparent;
+}
 
 .mat-elevation-z0 {
     box-shadow: 0 0 0 0 rgba(0, 0, 0, .2), 0 0 0 0 rgba(0, 0, 0, .14), 0 0 0 0 rgba(0, 0, 0, .12)

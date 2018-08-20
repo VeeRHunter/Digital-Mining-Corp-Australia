@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { FormControl, Validators } from '../../../node_modules/@angular/forms';
-import { WelcomePage } from '../welcome/welcome';
+// import { WelcomePage } from '../welcome/welcome';
 import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
 import { ServerProvider } from '../../providers/server/server';

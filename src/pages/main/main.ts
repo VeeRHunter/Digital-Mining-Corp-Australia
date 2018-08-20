@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController, ToastController
 import { RealEastatePage } from '../real-eastate/real-eastate';
 import { TradeCenterPage } from '../trade-center/trade-center';
 import { ServerProvider } from '../../providers/server/server';
-import { NoopScrollStrategy } from '../../../node_modules/@angular/cdk/overlay';
+// import { NoopScrollStrategy } from '../../../node_modules/@angular/cdk/overlay';
 import { TransactionPage } from '../transaction/transaction';
 
 /**

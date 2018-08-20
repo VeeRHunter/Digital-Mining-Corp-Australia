@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController, Content, Platform, MenuController } from 'ionic-angular';
-import { SignupPage } from '../signup/signup';
+// import { SignupPage } from '../signup/signup';
 import { WelcomePage } from '../welcome/welcome';
 import { ServerProvider } from '../../providers/server/server';
 import { FingerprintAIO, FingerprintOptions } from '../../../node_modules/@ionic-native/fingerprint-aio';

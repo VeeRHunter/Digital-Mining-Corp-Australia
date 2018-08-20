@@ -7,7 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 
 
@@ -20,10 +20,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
-import { HttpModule, Http } from '@angular/http';
+import { HttpModule } from '@angular/http';
 
 
 
@@ -50,8 +50,26 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { EmailConfirmPage } from '../pages/email-confirm/email-confirm';
 import { PendingPage } from '../pages/pending/pending';
 import { PendingDetailPage } from '../pages/pending-detail/pending-detail';
+import { FcmProvider } from '../providers/fcm/fcm';
 
+import { Firebase } from '@ionic-native/firebase';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { EscrowCompleteDetailPage } from '../pages/escrow-complete-detail/escrow-complete-detail';
+import { EscrowCompletePage } from '../pages/escrow-complete/escrow-complete';
+import { EscrowCreatePage } from '../pages/escrow-create/escrow-create';
+import { EscrowPendingDetailPage } from '../pages/escrow-pending-detail/escrow-pending-detail';
+import { EscrowPendingPage } from '../pages/escrow-pending/escrow-pending';
+
+const firebase = {
+  apiKey: "AIzaSyABnklED1Zls6MD5dJ2I7L8rdhRVLksjzM",
+  authDomain: "digitalminingcorpau-dc32a.firebaseapp.com",
+  databaseURL: "https://digitalminingcorpau-dc32a.firebaseio.com",
+  projectId: "digitalminingcorpau-dc32a",
+  storageBucket: "digitalminingcorpau-dc32a.appspot.com",
+  messagingSenderId: "313767785609"
+};
 
 @NgModule({
   declarations: [
@@ -76,6 +94,11 @@ import { PendingDetailPage } from '../pages/pending-detail/pending-detail';
     EmailConfirmPage,
     PendingPage,
     PendingDetailPage,
+    EscrowCompleteDetailPage,
+    EscrowCompletePage,
+    EscrowCreatePage,
+    EscrowPendingDetailPage,
+    EscrowPendingPage,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +106,8 @@ import { PendingDetailPage } from '../pages/pending-detail/pending-detail';
     BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(firebase),
+    AngularFirestoreModule,
     MatInputModule, MatButtonModule, MatChipsModule, MatIconModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule,
   ],
   bootstrap: [IonicApp],
@@ -108,6 +133,11 @@ import { PendingDetailPage } from '../pages/pending-detail/pending-detail';
     EmailConfirmPage,
     PendingPage,
     PendingDetailPage,
+    EscrowCompleteDetailPage,
+    EscrowCompletePage,
+    EscrowCreatePage,
+    EscrowPendingDetailPage,
+    EscrowPendingPage,
   ],
   providers: [
     StatusBar,
@@ -117,6 +147,8 @@ import { PendingDetailPage } from '../pages/pending-detail/pending-detail';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ServerProvider,
     InAppBrowser,
+    Firebase,
+    FcmProvider,
   ]
 })
 export class AppModule { }

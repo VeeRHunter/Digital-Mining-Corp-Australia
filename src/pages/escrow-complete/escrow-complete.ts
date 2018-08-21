@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server';
-import { EscrowCompleteDetailPage } from '../escrow-complete-detail/escrow-complete-detail';
-import { EascrowPage } from '../eascrow/eascrow';
-
 /**
  * Generated class for the EscrowCompletePage page.
  *

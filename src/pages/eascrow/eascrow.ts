@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
-import { EscrowCreatePage } from '../escrow-create/escrow-create';
-import { EscrowPendingPage } from '../escrow-pending/escrow-pending';
-import { EscrowCompletePage } from '../escrow-complete/escrow-complete';
 import { ServerProvider } from '../../providers/server/server';
 
 /**

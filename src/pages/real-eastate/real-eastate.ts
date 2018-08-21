@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
-import { TradeCenterPage } from '../trade-center/trade-center';
-import { IdVerifyPage } from '../id-verify/id-verify';
 import { ServerProvider } from '../../providers/server/server';
 
 /**

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { FormControl, Validators } from '../../../node_modules/@angular/forms';
-import { WelcomePage } from '../welcome/welcome';
 import { ServerProvider } from '../../providers/server/server';
 // import { ApiserverProvider } from '../../providers/apiserver/apiserver';
 

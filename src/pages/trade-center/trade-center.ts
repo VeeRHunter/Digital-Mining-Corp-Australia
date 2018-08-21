@@ -1,8 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content, ModalController, LoadingController, ToastController } from 'ionic-angular';
-import { ConfirmModalPage } from '../confirm-modal/confirm-modal';
 import { ServerProvider } from '../../providers/server/server';
-import { PendingPage } from '../pending/pending';
 
 /**
  * Generated class for the TradeCenterPage page.
@@ -150,7 +148,7 @@ export class TradeCenterPage {
   }
 
   confirmTrade() {
-    let modal = this.modalCtrl.create(ConfirmModalPage);
+    let modal = this.modalCtrl.create('ConfirmModalPage');
     modal.onDidDismiss(data => {
       console.log(data);
       if (data == "success") {

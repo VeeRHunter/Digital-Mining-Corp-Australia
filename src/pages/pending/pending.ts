@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server';
-import { PendingDetailPage } from '../pending-detail/pending-detail';
 
 /**
  * Generated class for the PendingPage page.

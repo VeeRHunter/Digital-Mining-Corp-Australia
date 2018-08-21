@@ -1,13 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
-// import { LoginPage } from '../login/login';
-// import { RealEastatePage } from '../real-eastate/real-eastate';
-import { AccountPage } from '../account/account';
-import { SmsfPage } from '../smsf/smsf';
-import { EascrowPage } from '../eascrow/eascrow';
-import { MainPage } from '../main/main';
-import { InitialLoginPage } from '../initial-login/initial-login';
-import { IdVerifyPage } from '../id-verify/id-verify';
 import { ServerProvider } from '../../providers/server/server';
 
 /**
@@ -85,7 +77,7 @@ export class WelcomePage {
 
   logOff() {
     localStorage.setItem("loged", "");
-    this.navCtrl.setRoot(InitialLoginPage);
+    this.navCtrl.setRoot('InitialLoginPage');
   }
   gotoRealEstate() {
     this.navCtrl.push('MainPage');

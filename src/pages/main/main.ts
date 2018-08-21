@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
-import { RealEastatePage } from '../real-eastate/real-eastate';
-import { TradeCenterPage } from '../trade-center/trade-center';
 import { ServerProvider } from '../../providers/server/server';
 // import { NoopScrollStrategy } from '../../../node_modules/@angular/cdk/overlay';
-import { TransactionPage } from '../transaction/transaction';
 
 /**
  * Generated class for the MainPage page.

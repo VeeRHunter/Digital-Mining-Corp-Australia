@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { FormControl, Validators } from '../../../node_modules/@angular/forms';
 import { ServerProvider } from '../../providers/server/server';
-import { InitialLoginPage } from '../initial-login/initial-login';
 
 /**
  * Generated class for the ForgotPasswordPage page.
@@ -99,7 +98,7 @@ export class ForgotPasswordPage {
     this.apiserver.postData(this.userData).then(result => {
       loading.dismiss();
       if (Object(result).status == "success") {
-        this.navCtrl.setRoot(InitialLoginPage);
+        this.navCtrl.setRoot('InitialLoginPage');
       } else {
         let toast = this.toastCtrl.create({
           message: Object(result).detail,

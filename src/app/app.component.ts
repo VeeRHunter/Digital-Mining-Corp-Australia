@@ -3,19 +3,6 @@ import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-// import { HomePage } from '../pages/home/home';
-// import { LoginPage } from '../pages/login/login';
-// import { SignupPage } from '../pages/signup/signup';
-// import { WelcomePage } from '../pages/welcome/welcome';
-// import { MainPage } from '../pages/main/main';
-// import { RealEastatePage } from '../pages/real-eastate/real-eastate';
-// import { SettingPage } from '../pages/setting/setting';
-// import { AccountPage } from '../pages/account/account';
-// import { SmsfPage } from '../pages/smsf/smsf';
-// import { EascrowPage } from '../pages/eascrow/eascrow';
-// import { TradeCenterPage } from '../pages/trade-center/trade-center';
-// import { InitialLoginPage } from '../pages/initial-login/initial-login';
-
 import { FcmProvider } from '../providers/fcm/fcm';
 
 import { ToastController } from 'ionic-angular';

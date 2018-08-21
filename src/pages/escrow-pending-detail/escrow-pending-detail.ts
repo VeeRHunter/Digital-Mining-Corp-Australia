@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ModalController, LoadingController } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server';
 import { InAppBrowser, InAppBrowserOptions } from '../../../node_modules/@ionic-native/in-app-browser';
-import { EmailConfirmPage } from '../email-confirm/email-confirm';
 
 /**
  * Generated class for the EscrowPendingDetailPage page.
@@ -68,7 +67,7 @@ export class EscrowPendingDetailPage {
 
   emailPDF() {
     localStorage.setItem("pdfURL", this.pendingData.penPDF);
-    let modal = this.modalCtrl.create(EmailConfirmPage);
+    let modal = this.modalCtrl.create('EmailConfirmPage');
     modal.onDidDismiss(data => {
       console.log(data);
       if (data != "" && typeof (data) != "undefined") {

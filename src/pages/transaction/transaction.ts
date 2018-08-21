@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server';
-import { TransactionDetailPage } from '../transaction-detail/transaction-detail';
 
 /**
  * Generated class for the TransactionPage page.

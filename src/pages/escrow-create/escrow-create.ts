@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server';
 import { FormControl, Validators } from '../../../node_modules/@angular/forms';
-import { EascrowPage } from '../eascrow/eascrow';
 
 /**
  * Generated class for the EscrowCreatePage page.

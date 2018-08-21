@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
-import { EscrowPendingDetailPage } from '../escrow-pending-detail/escrow-pending-detail';
 import { ServerProvider } from '../../providers/server/server';
 import { FormControl, Validators } from '@angular/forms';
-import { EascrowPage } from '../eascrow/eascrow';
 
 /**
  * Generated class for the EscrowPendingPage page.

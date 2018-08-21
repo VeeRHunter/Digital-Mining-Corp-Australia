@@ -9,7 +9,7 @@
   <ion-row class="header-component">
     <ion-col col-2>
       <ion-row class="full-height">
-        <ion-icon name="md-menu" menuToggle class="menu-icon">
+        <ion-icon name="md-arrow-round-back" (click)="back()" class="menu-icon">
         </ion-icon>
       </ion-row>
     </ion-col>
@@ -52,16 +52,20 @@
     </ion-row>
 
     <ion-row class="edit-pending">
-      <input matInput type="text" placeholder="BSB" [(ngModel)]="bankBSB">
+      <input matInput type="{{bankType}}" placeholder="BSB" [(ngModel)]="bankBSB">
     </ion-row>
 
     <ion-row class="edit-pending">
-      <input matInput type="text" placeholder="Account Number" [(ngModel)]="bankAccountNumber">
+      <input matInput type="{{bankType}}" placeholder="Account Number" [(ngModel)]="bankAccountNumber">
     </ion-row>
 
     <ion-row class="edit-pending">
-      <button mat-raised-button (click)="bankSubmit()">
+      <button mat-raised-button (click)="bankSubmit()" *ngIf="!switchSubmit">
         Submit
+      </button>
+
+      <button mat-raised-button (click)="bankChange()" *ngIf="switchSubmit">
+        Change Bank Details
       </button>
     </ion-row>
   </ion-row>
@@ -219,12 +223,12 @@
       </ion-col>
       <ion-col col-3 class="tran-left-border">
         <ion-row class="full-height">
-          <span class="verified-span" *ngIf="list.penVerify == 1" (click)="gotoTransactionDetail(i)">
+          <span class="verified-span" *ngIf="list.penVerify == 1" (click)="verifyUser(i)">
             Verified
           </span>
 
-          <span class="unverify-span" *ngIf="list.penVerify == 0" (click)="verifyUser(i)">
-            Verify
+          <span *ngIf="list.penVerify == 0" (click)="gotoTransactionDetail(i)">
+            Transaction Date Pending
           </span>
         </ion-row>
       </ion-col>

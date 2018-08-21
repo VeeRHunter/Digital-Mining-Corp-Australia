@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { EscrowPendingDetailPage } from '../escrow-pending-detail/escrow-pending-detail';
 import { ServerProvider } from '../../providers/server/server';
+import { FormControl, Validators } from '@angular/forms';
+import { EascrowPage } from '../eascrow/eascrow';
 
 /**
  * Generated class for the EscrowPendingPage page.
@@ -39,14 +41,23 @@ export class EscrowPendingPage {
   public bankAccountName = "";
   public bankBSB = "";
   public bankAccountNumber = "";
+  public bankChangedBSB = "";
+  public bankChangedAccountNumber = "";
   public bankCheck = false;
   public bankShow = false;
   public bankID = "";
+  public switchSubmit = false;
+  public bankType = "number";
 
   public verifyAmount1 = "";
   public verifyAmount2 = "";
   public verifyCheck = false;
   public verifyShow = false;
+
+  public bsbCtrl = new FormControl('', [
+    Validators.required,
+    Validators.pattern("[0-9]{6}$")
+  ])
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public apiserver: ServerProvider, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
   }
@@ -55,6 +66,7 @@ export class EscrowPendingPage {
     console.log('ionViewDidLoad EscrowPendingPage');
     this.verifyAmount1 = (0).toFixed(2);
     this.verifyAmount2 = (0).toFixed(2);
+    localStorage.setItem("bankDetailChange", "unChange");
     this.getPendingData();
   }
 
@@ -77,7 +89,7 @@ export class EscrowPendingPage {
           tempTranList.penDate = this.changeTimestampToDate(parseFloat(list.distribution_date));
           tempTranList.penDes = list.distribution_description;
           tempTranList.penValue = list.distribution_value;
-          tempTranList.penVerify = list.user_verified;
+          tempTranList.penVerify = this.compareDate(list.distribution_date);
           tempTranList.penTimestamp = list.distribution_date;
           tempTranList.penPDF = "http://traxprint.asia/" + list.document_location;
 
@@ -107,46 +119,83 @@ export class EscrowPendingPage {
     })
   }
 
-  bankDetail() {
-    if (!this.bankCheck) {
-      this.bankShow = !this.bankShow;
+  compareDate(inputDate) {
+    let currentTime = Math.floor(new Date().getTime() / 1000);
+    if (parseFloat(inputDate) > currentTime) {
+      return "1";
+    } else {
+      return "0";
     }
+  }
+
+  bankDetail() {
+    // if (!this.bankCheck) {
+    this.bankShow = !this.bankShow;
+    // }
   }
 
   bankSubmit() {
 
+    this.bsbCtrl.setValue(this.bankBSB);
     if (this.bankName != "" && this.bankAccountName != "" && this.bankAccountNumber != "" && this.bankBSB != "") {
-      let sendData = { "email": this.userData.email, "apiState": "bankDetail", "userId": "", "backName": this.bankName, "accName": this.bankAccountName, "bsb": this.bankBSB, "accNumber": this.bankAccountNumber, "verified": "" };
-      sendData.userId = this.userDetail.user_id;
-      sendData.verified = this.userDetail.user_verified;
 
-      // let loading = this.loadingCtrl.create({
-      //   content: "Please Wait..."
-      // });
-      // loading.present();
 
-      this.apiserver.postData(sendData).then(result => {
-        // loading.dismiss();
-        console.log(result);
-        if (Object(result).status == "success") {
-          this.bankCheck = true;
-          this.bankShow = !this.bankShow;
-          this.bankID = Object(result).bankID;
-        } else {
-          let toast = this.toastCtrl.create({
-            message: Object(result).detail,
-            duration: 2000
-          });
-          toast.present();
-        }
-      }, error => {
-        // loading.dismiss();
+      if (!this.bsbCtrl.valid) {
         let toast = this.toastCtrl.create({
-          message: "No Network",
+          message: "You must input 6 digits for BSB",
           duration: 2000
         });
         toast.present();
-      });
+      } else {
+        let sendData;
+        if (localStorage.getItem("bankDetailChange") == "Change") {
+          sendData = { "email": this.userData.email, "apiState": "bankDetailUpdate", "userId": "", "backName": this.bankName, "accName": this.bankAccountName, "bsb": this.bankBSB, "accNumber": this.bankAccountNumber, "verified": "", "bankID": "" };
+          sendData.bankID = this.bankID;
+          sendData.userId = this.userDetail.user_id;
+          sendData.verified = this.userDetail.user_verified;
+        } else {
+          sendData = { "email": this.userData.email, "apiState": "bankDetail", "userId": "", "backName": this.bankName, "accName": this.bankAccountName, "bsb": this.bankBSB, "accNumber": this.bankAccountNumber, "verified": "" };
+          sendData.userId = this.userDetail.user_id;
+          sendData.verified = this.userDetail.user_verified;
+        }
+
+        let loading = this.loadingCtrl.create({
+          content: "Please Wait..."
+        });
+        loading.present();
+
+        this.apiserver.postData(sendData).then(result => {
+          loading.dismiss();
+          console.log(result);
+          if (Object(result).status == "success") {
+            this.bankChangedBSB = this.bankBSB;
+            this.bankChangedAccountNumber = this.bankAccountNumber;
+            this.bankCheck = true;
+            this.bankShow = !this.bankShow;
+            this.switchSubmit = !this.switchSubmit;
+
+            this.bankType = "text";
+            this.bankBSB = this.changeBankDetail(this.bankBSB.toString());
+            this.bankAccountNumber = this.changeBankDetail(this.bankAccountNumber.toString());
+            localStorage.setItem("bankDetailChange", "unChange");
+
+            this.bankID = Object(result).bankID;
+          } else {
+            let toast = this.toastCtrl.create({
+              message: Object(result).detail,
+              duration: 2000
+            });
+            toast.present();
+          }
+        }, error => {
+          loading.dismiss();
+          let toast = this.toastCtrl.create({
+            message: "No Network",
+            duration: 2000
+          });
+          toast.present();
+        });
+      }
     } else {
       let toast = this.toastCtrl.create({
         message: "Please input all data",
@@ -155,6 +204,24 @@ export class EscrowPendingPage {
       toast.present();
     }
 
+  }
+
+  changeBankDetail(inputData) {
+    let returnData = inputData.charAt(0);
+    for (let i = 1; i < inputData.length - 1; i++) {
+      returnData = returnData + "*";
+    }
+    returnData = returnData + inputData.charAt(inputData.length - 1);
+    console.log(returnData);
+    return returnData;
+  }
+
+  bankChange() {
+    this.bankBSB = this.bankChangedBSB;
+    this.bankAccountNumber = this.bankChangedAccountNumber;
+    localStorage.setItem("bankDetailChange", "Change");
+    this.bankType = "number";
+    this.switchSubmit = !this.switchSubmit;
   }
 
   accountSubmit() {
@@ -201,8 +268,16 @@ export class EscrowPendingPage {
   }
 
   verifyAccount() {
-    if (!this.verifyCheck) {
-      this.verifyShow = !this.verifyShow;
+    if (this.bankCheck) {
+      if (!this.verifyCheck) {
+        this.verifyShow = !this.verifyShow;
+      }
+    } else {
+      let toast = this.toastCtrl.create({
+        message: "Please input Bank Detil first",
+        duration: 2000
+      });
+      toast.present();
     }
   }
 
@@ -338,6 +413,10 @@ export class EscrowPendingPage {
   gotoTransactionDetail(index) {
     localStorage.setItem("pendingEscrowData", JSON.stringify(this.pendingList[index]));
     this.navCtrl.push(EscrowPendingDetailPage);
+  }
+
+  back() {
+    this.navCtrl.setRoot(EascrowPage);
   }
 
 }

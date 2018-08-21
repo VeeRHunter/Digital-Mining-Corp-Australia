@@ -32,7 +32,7 @@ export class InitialLoginPage {
 
   public pinControl = new FormControl('', [
     Validators.required,
-    Validators.pattern("[0-9]{4}")
+    Validators.pattern("[0-9]{4}$")
   ])
   public rePinControl = new FormControl('', [
     Validators.required

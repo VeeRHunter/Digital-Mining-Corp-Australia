@@ -412,11 +412,11 @@ export class EscrowPendingPage {
 
   gotoTransactionDetail(index) {
     localStorage.setItem("pendingEscrowData", JSON.stringify(this.pendingList[index]));
-    this.navCtrl.push(EscrowPendingDetailPage);
+    this.navCtrl.push('EscrowPendingDetailPage');
   }
 
   back() {
-    this.navCtrl.setRoot(EascrowPage);
+    this.navCtrl.setRoot('EascrowPage');
   }
 
 }

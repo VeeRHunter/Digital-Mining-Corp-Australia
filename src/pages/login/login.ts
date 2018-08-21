@@ -176,7 +176,7 @@ export class LoginPage {
           localStorage.setItem("lastLoginTime", Object(result).lastLoginTime);
           localStorage.setItem("userVerified", Object(result).userVerified.toString());
           localStorage.setItem("afterLogin", "login");
-          this.navCtrl.setRoot(WelcomePage);
+          this.navCtrl.setRoot('WelcomePage');
         } else {
           let toast = this.toastCtrl.create({
             message: Object(result).detail,
@@ -229,7 +229,7 @@ export class LoginPage {
               localStorage.setItem("lastLoginTime", Object(result).lastLoginTime);
               localStorage.setItem("userVerified", Object(result).userVerified.toString());
               localStorage.setItem("afterLogin", "login");
-              this.navCtrl.setRoot(WelcomePage);
+              this.navCtrl.setRoot('WelcomePage');
             } else {
               let toast = this.toastCtrl.create({
                 message: Object(result).detail,
@@ -262,7 +262,7 @@ export class LoginPage {
 
   logOff() {
     localStorage.setItem("loged", "");
-    this.navCtrl.setRoot(InitialLoginPage);
+    this.navCtrl.setRoot('InitialLoginPage');
   }
 
 }

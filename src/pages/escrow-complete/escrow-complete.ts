@@ -152,11 +152,11 @@ export class EscrowCompletePage {
 
   gotoTransactionDetail(index) {
     localStorage.setItem("completeEscrowData", JSON.stringify(this.completeList[index]));
-    this.navCtrl.push(EscrowCompleteDetailPage);
+    this.navCtrl.push('EscrowCompleteDetailPage');
   }
 
   back() {
-    this.navCtrl.setRoot(EascrowPage);
+    this.navCtrl.setRoot('EascrowPage');
   }
 
 }

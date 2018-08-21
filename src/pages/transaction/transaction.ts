@@ -145,7 +145,7 @@ export class TransactionPage {
 
   gotoTransactionDetail(index) {
     localStorage.setItem("selectedTransaction", JSON.stringify(this.transactionList[index]));
-    this.navCtrl.push(TransactionDetailPage);
+    this.navCtrl.push('TransactionDetailPage');
   }
 
   changeTimestampToDate(inputData) {

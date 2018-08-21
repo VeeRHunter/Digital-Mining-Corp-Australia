@@ -131,7 +131,7 @@ export class RealEastatePage {
       this.pendingData.pending_value = "";
       localStorage.setItem("pendingItem", JSON.stringify(this.pendingData));
     }
-    this.navCtrl.push(TradeCenterPage);
+    this.navCtrl.push('TradeCenterPage');
   }
 
   clickSell() {
@@ -162,7 +162,7 @@ export class RealEastatePage {
       this.pendingData.pending_value = "";
       localStorage.setItem("pendingItem", JSON.stringify(this.pendingData));
     }
-    this.navCtrl.push(TradeCenterPage);
+    this.navCtrl.push('TradeCenterPage');
   }
 
   accessCode() {
@@ -172,7 +172,7 @@ export class RealEastatePage {
   findEstateAgent() {
     console.log("findEstateAgent");
     localStorage.setItem("verifyType", "realEstate");
-    this.navCtrl.push(IdVerifyPage);
+    this.navCtrl.push('IdVerifyPage');
   }
 
   getNextItem() {

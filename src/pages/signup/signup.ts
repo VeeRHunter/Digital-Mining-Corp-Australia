@@ -78,7 +78,7 @@ export class SignupPage {
         if (Object(result).status == "success") {
           localStorage.setItem("loged", "login");
           localStorage.setItem("useremail", this.userData.email);
-          this.navCtrl.push(WelcomePage);
+          this.navCtrl.push('WelcomePage');
         } else {
           let toast = this.toastCtrl.create({
             message: Object(result).detail,

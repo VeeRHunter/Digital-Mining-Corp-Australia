@@ -82,15 +82,15 @@ export class EascrowPage {
   }
 
   createTransaction() {
-    this.navCtrl.setRoot(EscrowCreatePage);
+    this.navCtrl.setRoot('EscrowCreatePage');
   }
 
   pendingTransactions() {
-    this.navCtrl.setRoot(EscrowPendingPage);
+    this.navCtrl.setRoot('EscrowPendingPage');
   }
 
   completeTransactions() {
-    this.navCtrl.setRoot(EscrowCompletePage);
+    this.navCtrl.setRoot('EscrowCompletePage');
   }
 
 }

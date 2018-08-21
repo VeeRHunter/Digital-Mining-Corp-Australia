@@ -938,7 +938,7 @@ export class EscrowCreatePage {
       this.apiserver.postData(addTranData).then(result => {
         loading.dismiss();
         if (Object(result).status == "success") {
-          this.navCtrl.push(EascrowPage);
+          this.navCtrl.push('EascrowPage');
         }
       })
     } else {

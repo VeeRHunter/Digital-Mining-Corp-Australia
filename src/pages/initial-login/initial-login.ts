@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { FormControl, Validators } from '../../../node_modules/@angular/forms';
 // import { WelcomePage } from '../welcome/welcome';
-import { LoginPage } from '../login/login';
+// import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
 import { ServerProvider } from '../../providers/server/server';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
@@ -52,7 +52,7 @@ export class InitialLoginPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad InitialLoginPage');
     if (localStorage.getItem("loged") == "login") {
-      this.navCtrl.setRoot(LoginPage);
+      this.navCtrl.setRoot('LoginPage');
     }
   }
 
@@ -71,7 +71,7 @@ export class InitialLoginPage {
         if (Object(result).status == "success") {
           localStorage.setItem("loged", "login");
           localStorage.setItem("useremail", this.userData.email);
-          this.navCtrl.setRoot(LoginPage);
+          this.navCtrl.setRoot('LoginPage');
         } else {
           let toast = this.toastCtrl.create({
             message: Object(result).detail,
@@ -92,11 +92,11 @@ export class InitialLoginPage {
   }
 
   gotoSignup() {
-    this.navCtrl.push(SignupPage);
+    this.navCtrl.push('SignupPage');
   }
 
   forgotPassword() {
-    this.navCtrl.push(ForgotPasswordPage);
+    this.navCtrl.push('ForgotPasswordPage');
   }
 
 }

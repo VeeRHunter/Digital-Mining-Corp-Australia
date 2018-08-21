@@ -88,21 +88,21 @@ export class WelcomePage {
     this.navCtrl.setRoot(InitialLoginPage);
   }
   gotoRealEstate() {
-    this.navCtrl.push(MainPage);
+    this.navCtrl.push('MainPage');
   }
   gotoAccount() {
-    this.navCtrl.push(AccountPage);
+    this.navCtrl.push('AccountPage');
   }
   gotoSMSF() {
-    this.navCtrl.push(SmsfPage);
+    this.navCtrl.push('SmsfPage');
   }
   gotoEscrow() {
-    this.navCtrl.push(EascrowPage);
+    this.navCtrl.push('EascrowPage');
   }
 
   verifyId() {
     localStorage.setItem("verifyType", "idVerify");
-    this.navCtrl.push(IdVerifyPage);
+    this.navCtrl.push('IdVerifyPage');
   }
 
 }

@@ -232,7 +232,7 @@ export class TradeCenterPage {
   }
 
   gotoPendingPage() {
-    this.navCtrl.push(PendingPage);
+    this.navCtrl.push('PendingPage');
   }
 
 

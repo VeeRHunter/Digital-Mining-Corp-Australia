@@ -174,7 +174,7 @@ export class PendingPage {
   gotoTransactionDetail(index) {
     localStorage.setItem("selectedPending", JSON.stringify(this.transactionList[index]));
     localStorage.setItem("pendingTotal", this.originalInvestment.toString());
-    this.navCtrl.push(PendingDetailPage);
+    this.navCtrl.push('PendingDetailPage');
   }
 
   changeTimestampToDate(inputData) {

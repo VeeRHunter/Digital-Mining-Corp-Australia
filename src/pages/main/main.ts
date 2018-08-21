@@ -108,22 +108,22 @@ export class MainPage {
   clickBuy() {
     console.log("clickBuy");
     localStorage.setItem("tradeType", "buy");
-    this.navCtrl.push(TradeCenterPage);
+    this.navCtrl.push('TradeCenterPage');
   }
 
   clickSell() {
     console.log("clickSell");
     localStorage.setItem("tradeType", "sell");
-    this.navCtrl.push(TradeCenterPage);
+    this.navCtrl.push('TradeCenterPage');
   }
 
   gotoRealEstate() {
-    this.navCtrl.push(RealEastatePage);
+    this.navCtrl.push('RealEastatePage');
   }
 
   gotoTransaction() {
     localStorage.setItem("originalInvestment", this.orgInvestment);
-    this.navCtrl.push(TransactionPage);
+    this.navCtrl.push('TransactionPage');
   }
 
 }

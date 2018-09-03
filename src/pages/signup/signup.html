@@ -136,10 +136,18 @@
 
     <ion-row class="user-input-row">
       <mat-form-field class="example-full-width">
-        <input matInput [(ngModel)]="userData.uniqueField" placeholder="{{uniquePlace}}" required name="uniquefield">
+        <input matInput type="{{uniqueType}}" [formControl]="uniqueCtrl" [(ngModel)]="userData.uniqueField" placeholder="{{uniquePlace}}" required name="uniquefield">
 
-        <mat-error>
+        <mat-error *ngIf="uniqueCtrl.hasError('required')">
           Unique Field is required.
+        </mat-error>
+        
+        <mat-error *ngIf="uniqueCtrl.hasError('pattern') && userData.uniqueField != '' && uniqueType == 'number'">
+          Please input valid Unique with {{uniqueLength}} digitals.
+        </mat-error>
+        
+        <mat-error *ngIf="uniqueCtrl.hasError('pattern') && userData.uniqueField != '' && uniqueType == 'text'">
+          Please input valid Unique with {{uniqueLength}} digitals and letters.
         </mat-error>
 
       </mat-form-field>

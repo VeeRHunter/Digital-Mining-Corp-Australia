@@ -35,15 +35,23 @@ export class SignupPage {
     Validators.required
   ]);
 
+  public uniqueCtrl = new FormControl('', [
+    Validators.required,
+  ]);
+
+  public uniqueLength: any;
+
   public userData = { "firstName": "", "lastName": "", "email": "", "DOB": "", "address": "", "city": "", "state": "", "country": "", "postalCode": "", "uniqueField": "", "password": "", "repassword": "", "pincode": "", "repincode": "", "apiState": "signup" };
 
-  public countryList = ["Australia", "United State"];
+  public countryList: any[];
+  public totalList: any[];
   public uniqueList = ["unique1", "unique2"];
 
   public clickSignUp = false;
 
   public switchUnique = true;
   public uniquePlace: any;
+  public uniqueType: any;
 
   public yearList: any[];
   public currentYear: any;
@@ -59,7 +67,45 @@ export class SignupPage {
     for (let i = 1950; i < this.currentYear + 1; i++) {
       this.yearList.push(i);
     }
-    console.log(this.yearList);
+    this.getCountryList();
+  }
+
+  getCountryList() {
+    this.countryList = new Array();
+    this.totalList = new Array();
+    let loading = this.loadingCtrl.create({
+      content: "Please Wait..."
+    });
+    loading.present();
+    this.userData.apiState = "getCountryList";
+    this.apiserver.postData(this.userData).then(result => {
+      console.log(result);
+      loading.dismiss();
+      if (Object(result).status == "success") {
+        let tempCountry = new Array();
+        for (let list of Object(result).countryList) {
+          tempCountry.push(list.uc_country);
+          this.totalList.push(list);
+        }
+        for (let list of tempCountry) {
+          this.countryList.push(list);
+        }
+        console.log(this.countryList);
+      } else {
+        let toast = this.toastCtrl.create({
+          message: Object(result).detail,
+          duration: 2000
+        });
+        toast.present();
+      }
+    }, error => {
+      loading.dismiss();
+      let toast = this.toastCtrl.create({
+        message: "No Network",
+        duration: 2000
+      });
+      toast.present();
+    })
   }
 
   signUpUser(userProfile) {
@@ -71,6 +117,7 @@ export class SignupPage {
         content: "Please Wait..."
       });
       loading.present();
+      this.userData.apiState = "signup";
       this.apiserver.postData(this.userData).then((result) => {
         loading.dismiss();
         console.log(Object(result));
@@ -107,17 +154,30 @@ export class SignupPage {
   }
 
   selectCountry() {
-    if (this.userData.country == "United State") {
-      this.uniquePlace = "Social Security Number";
-    }
-    else if (this.userData.country == "Australia") {
-      this.uniquePlace = "Tax File Number";
-    }
-    else {
+    if (this.userData.country == "") {
       this.uniquePlace = "Unique Field";
+    } else {
+      for (let list of this.totalList) {
+        if (this.userData.country == list.uc_country) {
+          this.uniquePlace = list.uc_field_name;
+          this.uniqueLength = list.uc_characters;
+          if (list.uc_letters == "0") {
+            this.uniqueType = "number";
+
+            this.uniqueCtrl.setValidators(
+              Validators.pattern("[0-9]{" + list.uc_characters + "}$")
+            );
+          } else {
+            this.uniqueType = "text";
+
+            this.uniqueCtrl.setValidators(
+              Validators.pattern("[A-Za-z0-9]{" + list.uc_characters + "}$")
+            );
+          }
+
+        }
+      }
     }
-    console.log(this.userData.country);
-    console.log(this.switchUnique);
   }
 
 }

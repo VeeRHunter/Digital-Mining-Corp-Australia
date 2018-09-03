@@ -26,9 +26,10 @@ export class ConfirmModalPage {
 
   fingerprintOptions: FingerprintOptions;
 
-  public userData = { "email": "", "pinCode": "", "apiState": "pinlogin", "lastLoginTime": "" };
+  public userData = { "email": "", "pinCode": "", "apiState": "pinlogin", "confirmValue": "", "propertyID": "", "tranType": "", "timeStamp": "" };
   public availAccess = false;
-  public returnData: any;
+
+  public confirmValue = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public viewCtrl: ViewController
     , public loadingCtrl: LoadingController, public apiserver: ServerProvider, public platform: Platform, public fingerAuth: FingerprintAIO) {
@@ -41,11 +42,16 @@ export class ConfirmModalPage {
       clientSecret: 'password',
       disableBackup: true
     };
-    console.log('ionViewDidLoad LoginPage');
+    console.log('ionViewDidLoad ConfirmModalPage');
     this.userData.email = localStorage.getItem("useremail");
-    
-    // localStorage.setItem("lastLoginTime", Object(result).lastLoginTime);
-    this.userData.lastLoginTime = localStorage.getItem("lastLoginTime");
+    this.userData.confirmValue = localStorage.getItem("confirmValue");
+    if (localStorage.getItem("tradeType") == "buy") {
+      this.userData.tranType = "Buy Shares";
+    } else if (localStorage.getItem("tradeType") == "sell") {
+      this.userData.tranType = "Sell Shares";
+      this.userData.confirmValue = "-" + this.userData.confirmValue;
+    }
+    this.userData.propertyID = JSON.parse(localStorage.getItem("pendingItem")).property_id;
   }
 
   changeInput1(input2) {
@@ -121,20 +127,23 @@ export class ConfirmModalPage {
   submitAccess() {
     console.log("login");
     if (this.pin1 != "" && this.pin2 != "" && this.pin3 != "" && this.pin4 != "") {
+      this.userData.apiState = "confirmPinCode";
       this.userData.email = localStorage.getItem("useremail");
       this.userData.pinCode = this.pin1 + this.pin2 + this.pin3 + this.pin4;
-      this.userData.apiState = "pinlogin";
+      this.getCurrentTimeStamp();
 
       let loading = this.loadingCtrl.create({
         content: "Please Wait..."
       });
       loading.present();
 
+      console.log(JSON.stringify(this.userData));
       this.apiserver.postData(this.userData).then(result => {
         console.log(result);
         loading.dismiss();
         if (Object(result).status == "success") {
-          this.modalDismiss();
+          localStorage.setItem("pendingItem", JSON.stringify(Object(result).pendingData));
+          this.modalDismiss(Object(result).pendingValue);
           // this.navCtrl.setRoot(WelcomePage);
         } else {
           let toast = this.toastCtrl.create({
@@ -166,7 +175,7 @@ export class ConfirmModalPage {
 
   async fingerLogin() {
 
-    this.userData.apiState = "fingerlogin";
+    this.userData.apiState = "confirmFingerprint";
 
     try {
       await this.platform.ready();
@@ -176,14 +185,19 @@ export class ConfirmModalPage {
       if (available != null) {
         const result = await this.fingerAuth.show(this.fingerprintOptions);
         if (result.withFingerprint != null && result.withFingerprint != "") {
+
+          this.getCurrentTimeStamp();
+
           let loading = this.loadingCtrl.create({
             content: "Please Wait..."
           });
           loading.present();
+          console.log(JSON.stringify(this.userData));
           this.apiserver.postData(this.userData).then(result => {
             loading.dismiss();
             if (Object(result).status == "success") {
-              this.modalDismiss();
+              localStorage.setItem("pendingItem", JSON.stringify(Object(result).pendingData));
+              this.modalDismiss(Object(result).pendingValue);
               // this.navCtrl.setRoot(WelcomePage);
             } else {
               let toast = this.toastCtrl.create({
@@ -209,13 +223,17 @@ export class ConfirmModalPage {
     }
   }
 
-  modalDismiss() {
-    this.returnData = "success";
-    this.viewCtrl.dismiss(this.returnData);
+  modalDismiss(data) {
+    let returnData = { "status": "success", "data": data };
+    this.viewCtrl.dismiss(returnData);
   }
 
-  goback(){
+  goback() {
     this.navCtrl.pop();
+  }
+
+  getCurrentTimeStamp(){
+    this.userData.timeStamp = Math.floor(new Date().getTime() / 1000).toString();
   }
 
 }

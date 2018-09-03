@@ -66,36 +66,6 @@ export class TradeCenterPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TradeCenterPage');
-    // this.smallPageTitle = "FREE HOLD";
-    // this.addressName = "4 Ellis Place, mountain creek, QUEENSLAND 4557";
-    // this.currentMV = (360000).toFixed(2);
-    // // this.equityValue = "$200000";
-    // // this.debtValue = "$160000";
-    // // this.swapsValue = "0.00%";
-    // this.buildingImage = "assets/imgs/house.jpg";
-    // this.noProperty = true;
-    // this.equityPercent = (10.00).toFixed(2);
-    // this.balanceEquityValue = (90).toFixed(2);
-    // if (localStorage.getItem("tradeType") == "buy") {
-    //   this.jointlyOwned = true;
-    //   this.smallPageTitle = "FREE HOLD";
-    //   this.equityValue = "100%";
-    //   this.debtTitle = "";
-    //   this.debtValue = "";
-    // } else {
-    //   this.jointlyOwned = false;
-    //   this.smallPageTitle = "UNDER MORTGAGE";
-    //   this.equityValue = "$200000";
-    //   this.debtValue = "$160000";
-    //   this.debtTitle = "Debt Balance";
-    // }
-    // this.equitySwapValue = (parseFloat(this.currentMV) * 0.95).toFixed(2);
-    // if (this.equityValue.includes("%")) {
-    //   this.swichEquity = true;
-    // } else {
-    //   this.swichEquity = false;
-    // }
-    // this.swapMax = (parseFloat(this.currentMV) * 0.95).toFixed(2);
     this.getTradeItem();
 
 
@@ -103,7 +73,6 @@ export class TradeCenterPage {
 
   focusOnEquityValue() {
     console.log("Focus On");
-    // let itemTop = inputEquity._elementRef.nativeElement.getBoundingClientRect().top;
     let itemTop = document.getElementById('inputEquity').offsetTop;
     let itemPositionY = this.content.getContentDimensions().scrollTop + itemTop;
     console.log(itemTop);
@@ -148,18 +117,35 @@ export class TradeCenterPage {
   }
 
   confirmTrade() {
-    let modal = this.modalCtrl.create('ConfirmModalPage');
-    modal.onDidDismiss(data => {
-      console.log(data);
-      if (data == "success") {
-        let toast = this.toastCtrl.create({
-          message: "Success Confirm",
-          duration: 3000
-        });
-        toast.present();
-      }
-    });
-    modal.present();
+
+    if (this.equitySwapValue == 0) {
+      let toast = this.toastCtrl.create({
+        message: "Please Input Equity Swap Amount",
+        duration: 2000
+      });
+      toast.present();
+    } else {
+      localStorage.setItem("confirmValue", this.equitySwapValue);
+      let modal = this.modalCtrl.create('ConfirmModalPage');
+      modal.onDidDismiss(data => {
+        console.log(data);
+        if (data != null) {
+          if (data.status == "success") {
+            let toast = this.toastCtrl.create({
+              message: "Success Confirm",
+              duration: 3000
+            });
+            toast.present();
+            if (parseFloat(data.data) > 0) {
+              this.pendingVlaue = "$" + data.data;
+            } else {
+              this.pendingVlaue = "-$" + Math.abs(data.data);
+            }
+          }
+        }
+      });
+      modal.present();
+    }
   }
 
   getTradeItem() {

@@ -29,8 +29,8 @@ export class RealEastatePage {
   public debtValue: any;
   public swapsValue: any;
   public pendingShareBuy: any;
+  
   public pendingShareSell: any;
-
   public debtTitle: any;
   public buildingImage: any;
 
@@ -108,13 +108,13 @@ export class RealEastatePage {
     let currentItem = this.totalData[this.currentIndex];
 
     let changedValue = false;
+    this.pendingData.property_id = currentItem.id;
+    this.pendingData.customer_id = currentItem.customer_id;
 
     for (let list of this.pendingList) {
       if (currentItem.id == list.property_id && list.transaction_type == "Buy Shares") {
-        this.pendingData.customer_id = list.customer_id;
         this.pendingData.id = list.id;
         this.pendingData.pending_value = list.pending_value;
-        this.pendingData.property_id = list.property_id;
         this.pendingData.transaction_document = list.transaction_document;
         this.pendingData.transaction_timestamp = list.transaction_timestamp;
         this.pendingData.transaction_type = list.transaction_type;
@@ -127,6 +127,7 @@ export class RealEastatePage {
       localStorage.setItem("pendingItem", JSON.stringify(this.pendingData));
     } else {
       this.pendingData.pending_value = "";
+      console.log(this.pendingData);
       localStorage.setItem("pendingItem", JSON.stringify(this.pendingData));
     }
     this.navCtrl.push('TradeCenterPage');
@@ -139,13 +140,14 @@ export class RealEastatePage {
 
     let changedValue = false;
     let currentItem = this.totalData[this.currentIndex];
+    this.pendingData.property_id = currentItem.id;
+    this.pendingData.customer_id = currentItem.customer_id;
 
     for (let list of this.pendingList) {
       if (currentItem.id == list.property_id && list.transaction_type == "Sell Shares") {
         this.pendingData.customer_id = list.customer_id;
         this.pendingData.id = list.id;
         this.pendingData.pending_value = list.pending_value;
-        this.pendingData.property_id = list.property_id;
         this.pendingData.transaction_document = list.transaction_document;
         this.pendingData.transaction_timestamp = list.transaction_timestamp;
         this.pendingData.transaction_type = list.transaction_type;
@@ -158,6 +160,7 @@ export class RealEastatePage {
       localStorage.setItem("pendingItem", JSON.stringify(this.pendingData));
     } else {
       this.pendingData.pending_value = "";
+      console.log(this.pendingData);
       localStorage.setItem("pendingItem", JSON.stringify(this.pendingData));
     }
     this.navCtrl.push('TradeCenterPage');

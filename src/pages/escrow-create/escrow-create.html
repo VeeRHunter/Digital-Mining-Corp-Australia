@@ -229,7 +229,7 @@
         <ion-col col-12>
           <ion-row class="full-height">
             <mat-select [(ngModel)]="selCountry" placeholder="Country" required name="country">
-              <mat-option *ngFor="let list of countryList" [value]="list" (click)="selectCountry()">
+              <mat-option *ngFor="let list of selCountryList" [value]="list" (click)="selectCountry()">
                 {{ list }}
               </mat-option>
             </mat-select>
@@ -249,7 +249,20 @@
       <ion-row class="each-property-row">
         <ion-col col-12>
           <ion-row class="full-height">
-            <input matInput type="text" placeholder="{{uniquPlace}}" [(ngModel)]="selUnique">
+            <input matInput type="{{selUniqueType}}" [formControl]="selUniqueCtrl" placeholder="{{selUniquePlace}}" [(ngModel)]="selUnique">
+
+            <!-- <mat-error *ngIf="selUniqueCtrl.hasError('required')">
+              Unique Field is required.
+            </mat-error> -->
+
+            <ion-row class="mat-error-show" *ngIf="selUniqueCtrl.hasError('pattern') && selUnique != '' && selUniqueType == 'number'">
+              Please input valid Unique with {{selUniqueLength}} digitals.
+            </ion-row>
+
+            <ion-row class="mat-error-show" *ngIf="selUniqueCtrl.hasError('pattern') && selUnique != '' && selUniqueType == 'text'">
+              Please input valid Unique with {{selUniqueLength}} digitals and letters.
+            </ion-row>
+
           </ion-row>
         </ion-col>
       </ion-row>
@@ -382,7 +395,7 @@
         <ion-col col-12>
           <ion-row class="full-height">
             <mat-select [(ngModel)]="buyCountry" placeholder="Country" required name="country">
-              <mat-option *ngFor="let list of countryList" [value]="list" (click)="selectBuyCountry()">
+              <mat-option *ngFor="let list of buyCountryList" [value]="list" (click)="selectBuyCountry()">
                 {{ list }}
               </mat-option>
             </mat-select>
@@ -402,7 +415,16 @@
       <ion-row class="each-property-row">
         <ion-col col-12>
           <ion-row class="full-height">
-            <input matInput type="text" placeholder="{{uniquBuyPlace}}" [(ngModel)]="buyUnique">
+            <input matInput type="{{buyUniqueType}}" [formControl]="buyUniqueCtrl" placeholder="{{buyUniquePlace}}" [(ngModel)]="buyUnique">
+
+            <ion-row class="mat-error-show" *ngIf="buyUniqueCtrl.hasError('pattern') && buyUnique != '' && buyUniqueType == 'number'">
+              Please input valid Unique with {{buyUniqueLength}} digitals.
+            </ion-row>
+
+            <ion-row class="mat-error-show" *ngIf="buyUniqueCtrl.hasError('pattern') && buyUnique != '' && buyUniqueType == 'text'">
+              Please input valid Unique with {{buyUniqueLength}} digitals and letters.
+            </ion-row>
+
           </ion-row>
         </ion-col>
       </ion-row>
@@ -535,7 +557,7 @@
         <ion-col col-12>
           <ion-row class="full-height">
             <mat-select [(ngModel)]="disCountry" placeholder="Country" required name="country">
-              <mat-option *ngFor="let list of countryList" [value]="list" (click)="selectDisCountry()">
+              <mat-option *ngFor="let list of disCountryList" [value]="list" (click)="selectDisCountry()">
                 {{ list }}
               </mat-option>
             </mat-select>
@@ -555,7 +577,15 @@
       <ion-row class="each-property-row">
         <ion-col col-12>
           <ion-row class="full-height">
-            <input matInput type="text" placeholder="{{uniquDisPlace}}" [(ngModel)]="disUnique">
+            <input matInput type="{{disUniqueType}}" [formControl]="disUniqueCtrl" placeholder="{{disUniquePlace}}" [(ngModel)]="disUnique">
+
+            <ion-row class="mat-error-show" *ngIf="disUniqueCtrl.hasError('pattern') && disUnique != '' && disUniqueType == 'number'">
+              Please input valid Unique with {{disUniqueLength}} digitals.
+            </ion-row>
+
+            <ion-row class="mat-error-show" *ngIf="disUniqueCtrl.hasError('pattern') && disUnique != '' && disUniqueType == 'text'">
+              Please input valid Unique with {{disUniqueLength}} digitals and letters.
+            </ion-row>
           </ion-row>
         </ion-col>
       </ion-row>

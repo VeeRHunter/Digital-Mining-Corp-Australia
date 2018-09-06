@@ -62,13 +62,11 @@ page-transaction-detail {
         }
         .non-even-tran {
             border-bottom: 1px solid white;
-            background-color: #e9ebf5;
-            // padding: 5px 0px;
+            background-color: #e9ebf5; // padding: 5px 0px;
         }
         .even-tran {
             border-bottom: 1px solid white;
-            background-color: #cfd5ea;
-            // padding: 5px 0px;
+            background-color: #cfd5ea; // padding: 5px 0px;
         }
     }
     .view-pdf {
@@ -82,7 +80,7 @@ page-transaction-detail {
             background-color: #4472c4;
         }
     }
-    .email-pdf{
+    .email-pdf {
         margin-top: 20px;
         margin-bottom: 20px;
         button {
@@ -93,7 +91,7 @@ page-transaction-detail {
             background-color: #4472c4;
         }
     }
-    .back-list{
+    .back-list {
         margin-top: 20px;
         margin-bottom: 20px;
         button {

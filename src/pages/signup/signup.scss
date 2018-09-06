@@ -31,29 +31,28 @@ page-signup {
         border-bottom: 1px solid #a16c92;
         margin-bottom: 20px;
         margin-top: -10px;
-        
         ion-col {
             padding: unset;
         }
-        span{
+        span {
             margin-top: auto;
             margin-bottom: auto;
         }
-        ion-datetime{
+        ion-datetime {
             text-align: left;
             margin-top: auto;
             margin-bottom: auto;
             padding-left: unset !important;
         }
-        ion-item{
+        ion-item {
             padding-left: unset !important;
             font-size: 1.6rem !important;
-            .item-inner{
+            .item-inner {
                 border-bottom: unset !important;
                 padding-right: unset !important;
             }
         }
-        .mat-error-show{
+        .mat-error-show {
             bottom: -15px;
         }
     }

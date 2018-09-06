@@ -29,7 +29,7 @@ export class RealEastatePage {
   public debtValue: any;
   public swapsValue: any;
   public pendingShareBuy: any;
-  
+
   public pendingShareSell: any;
   public debtTitle: any;
   public buildingImage: any;
@@ -212,9 +212,9 @@ export class RealEastatePage {
       this.equityValue = "$" + this.changeToDecimal(currentItem.current_equity);
     }
     this.debtValue = "$" + currentItem.debt_balance;
-    this.swapsValue = currentItem.eq_share_swap + "%";
-    this.pendingShareBuy = currentItem.pending_share_buy + "%";
-    this.pendingShareSell = currentItem.pending_share_sell + "%";
+    this.swapsValue = "$" + currentItem.eq_share_swap;
+    this.pendingShareBuy = "$" + currentItem.pending_share_buy;
+    this.pendingShareSell = "$" + currentItem.pending_share_sell;
   }
 
   clickNext() {

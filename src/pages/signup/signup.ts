@@ -87,7 +87,7 @@ export class SignupPage {
           tempCountry.push(list.uc_country);
           this.totalList.push(list);
         }
-        for (let list of tempCountry) {
+        for (let list of tempCountry.sort()) {
           this.countryList.push(list);
         }
         console.log(this.countryList);

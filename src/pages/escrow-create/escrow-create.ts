@@ -51,6 +51,13 @@ export class EscrowCreatePage {
   public selCheck = false;
   public sellData: any;
   public addSellButton = "Add Seller";
+  public selCountryList: any[];
+  public selUniqueType: any;
+  public selUniquePlace: any;
+  public selUniqueLength: any;
+  public selUniqueCtrl = new FormControl('', [
+    Validators.required,
+  ]);
 
   public buyFirstName: any;
   public buyLastName: any;
@@ -68,6 +75,13 @@ export class EscrowCreatePage {
   public buyCheck = false;
   public buyData: any;
   public addBuyButton = "Add Buyer";
+  public buyCountryList: any[];
+  public buyUniqueType: any;
+  public buyUniquePlace: any;
+  public buyUniqueLength: any;
+  public buyUniqueCtrl = new FormControl('', [
+    Validators.required,
+  ]);
 
   public disFirstName: any;
   public disLastName: any;
@@ -87,13 +101,17 @@ export class EscrowCreatePage {
   public disCheck = false;
   public disData: any;
   public addDisButton = "Add Disbursement";
+  public disCountryList: any[];
+  public disUniqueType: any;
+  public disUniquePlace: any;
+  public disUniqueLength: any;
+  public disUniqueCtrl = new FormControl('', [
+    Validators.required,
+  ]);
 
   public userEmail: any;
 
-  public countryList = ["Australia", "United State"];
-  public uniquPlace = "Unique Field";
-  public uniquBuyPlace = "Unique Field";
-  public uniquDisPlace = "Unique Field";
+  public totalList: any[];
 
   public emailCtrl = new FormControl('', [
     Validators.required,
@@ -111,14 +129,62 @@ export class EscrowCreatePage {
     this.proSalePrice = (0).toFixed(2);
     this.disValue = (0).toFixed(2);
     this.setAllFlagToFlase();
+    this.getCountryList();
+  }
+
+
+  getCountryList() {
+    let userData = { "firstName": "", "lastName": "", "email": "", "DOB": "", "address": "", "city": "", "state": "", "country": "", "postalCode": "", "uniqueField": "", "password": "", "repassword": "", "pincode": "", "repincode": "", "apiState": "signup" };
+
+    this.totalList = new Array();
+    this.selCountryList = new Array();
+    this.buyCountryList = new Array();
+    this.disCountryList = new Array();
+    let loading = this.loadingCtrl.create({
+      content: "Please Wait..."
+    });
+    loading.present();
+    userData.apiState = "getCountryList";
+    this.apiserver.postData(userData).then(result => {
+      console.log(result);
+      loading.dismiss();
+      if (Object(result).status == "success") {
+        let tempCountry = new Array();
+        for (let list of Object(result).countryList) {
+          tempCountry.push(list.uc_country);
+          this.totalList.push(list);
+        }
+        for (let list of tempCountry.sort()) {
+          this.selCountryList.push(list);
+          this.buyCountryList.push(list);
+          this.disCountryList.push(list);
+        }
+        this.selUniquePlace = "Unique Field";
+        this.buyUniquePlace = "Unique Field";
+        this.disUniquePlace = "Unique Field";
+      } else {
+        let toast = this.toastCtrl.create({
+          message: Object(result).detail,
+          duration: 2000
+        });
+        toast.present();
+      }
+    }, error => {
+      loading.dismiss();
+      let toast = this.toastCtrl.create({
+        message: "No Network",
+        duration: 2000
+      });
+      toast.present();
+    })
   }
 
   setAllFlagToFlase() {
-    this.flagBuyerDetails = false;
-    this.flagDisbursements = false;
-    this.flagPropertyAddress = false;
-    this.flagPropertySalePrice = false;
-    this.flagSellerDetails = false;
+    // this.flagBuyerDetails = false;
+    // this.flagDisbursements = false;
+    // this.flagPropertyAddress = false;
+    // this.flagPropertySalePrice = false;
+    // this.flagSellerDetails = false;
   }
 
   propertyAddress() {
@@ -231,7 +297,7 @@ export class EscrowCreatePage {
 
         setTimeout(() => {
           this.setAllFlagToFlase();
-          this.flagPropertyAddress = !this.flagPropertyAddress;
+          this.flagPropertyAddress = true;
         }, 2000);
       } else {
         addProAddress.propertyID = localStorage.getItem("propertyID");
@@ -279,7 +345,7 @@ export class EscrowCreatePage {
         });
         toast.present();
         this.setAllFlagToFlase();
-        this.flagPropertyAddress = !this.flagPropertyAddress;
+        this.flagPropertyAddress = true;
       } else {
         let loading = this.loadingCtrl.create({
           content: "Please Wait..."
@@ -334,7 +400,7 @@ export class EscrowCreatePage {
           toast.present();
           setTimeout(() => {
             this.setAllFlagToFlase();
-            this.flagPropertyAddress = !this.flagPropertyAddress;
+            this.flagPropertyAddress = true;
           }, 2000);
         } else {
           this.emailCtrl.setValue(this.selEmail);
@@ -390,7 +456,7 @@ export class EscrowCreatePage {
         });
         toast.present();
         this.setAllFlagToFlase();
-        this.flagPropertyAddress = !this.flagPropertyAddress;
+        this.flagPropertyAddress = true;
       } else {
         let loading = this.loadingCtrl.create({
           content: "Please Wait..."
@@ -445,7 +511,7 @@ export class EscrowCreatePage {
           toast.present();
           setTimeout(() => {
             this.setAllFlagToFlase();
-            this.flagPropertyAddress = !this.flagPropertyAddress;
+            this.flagPropertyAddress = true;
           }, 2000);
         } else {
           this.emailCtrl.setValue(this.buyEmail);
@@ -501,7 +567,7 @@ export class EscrowCreatePage {
         });
         toast.present();
         this.setAllFlagToFlase();
-        this.flagPropertyAddress = !this.flagPropertyAddress;
+        this.flagPropertyAddress = true;
       } else {
         let loading = this.loadingCtrl.create({
           content: "Please Wait..."
@@ -556,7 +622,7 @@ export class EscrowCreatePage {
           toast.present();
           setTimeout(() => {
             this.setAllFlagToFlase();
-            this.flagPropertyAddress = !this.flagPropertyAddress;
+            this.flagPropertyAddress = true;
           }, 2000);
         } else {
           this.emailCtrl.setValue(this.disEmail);
@@ -881,7 +947,7 @@ export class EscrowCreatePage {
       if (this.selShowFlag) {
         return true;
       } else {
-        if (this.getAvailItem(this.selFirstName) && this.getAvailItem(this.selAddress) && this.getAvailItem(this.selCity) && this.getAvailItem(this.selCountry) && this.getAvailItem(this.selDob) && this.getAvailItem(this.selEmail) && this.getAvailItem(this.selLastName) && this.getAvailItem(this.selPostal) && this.getAvailItem(this.selUnique) && this.getAvailItem(this.selState)) {
+        if (this.getAvailItem(this.selFirstName) && this.getAvailItem(this.selAddress) && this.getAvailItem(this.selCity) && this.getAvailItem(this.selCountry) && this.getAvailItem(this.selDob) && this.getAvailItem(this.selEmail) && this.getAvailItem(this.selLastName) && this.getAvailItem(this.selPostal) && this.selUniqueCtrl.valid && this.getAvailItem(this.selState)) {
           return true;
         } else {
           return false;
@@ -897,7 +963,7 @@ export class EscrowCreatePage {
       if (this.buyShowFlag) {
         return true;
       } else {
-        if (this.getAvailItem(this.buyAddress) && this.getAvailItem(this.buyCity) && this.getAvailItem(this.buyCountry) && this.getAvailItem(this.buyDob) && this.getAvailItem(this.buyEmail) && this.getAvailItem(this.buyFirstName) && this.getAvailItem(this.buyLastName) && this.getAvailItem(this.buyPostal) && this.getAvailItem(this.buyUnique) && this.getAvailItem(this.buyState)) {
+        if (this.getAvailItem(this.buyAddress) && this.getAvailItem(this.buyCity) && this.getAvailItem(this.buyCountry) && this.getAvailItem(this.buyDob) && this.getAvailItem(this.buyEmail) && this.getAvailItem(this.buyFirstName) && this.getAvailItem(this.buyLastName) && this.getAvailItem(this.buyPostal) && this.buyUniqueCtrl.valid && this.getAvailItem(this.buyState)) {
           return true;
         } else {
           return false;
@@ -913,7 +979,7 @@ export class EscrowCreatePage {
       if (this.disShowFlag && this.disValue > 0 && this.getAvailItem(this.disDes)) {
         return true;
       } else {
-        if (this.getAvailItem(this.disAddress) && this.getAvailItem(this.disCity) && this.getAvailItem(this.disCountry) && this.getAvailItem(this.disDes) && this.getAvailItem(this.disDob) && this.getAvailItem(this.disEmail) && this.getAvailItem(this.disFirstName) && this.getAvailItem(this.disLastName) && this.getAvailItem(this.disPostal) && this.getAvailItem(this.disState) && this.getAvailItem(this.disUnique) && this.disValue > 0) {
+        if (this.getAvailItem(this.disAddress) && this.getAvailItem(this.disCity) && this.getAvailItem(this.disCountry) && this.getAvailItem(this.disDes) && this.getAvailItem(this.disDob) && this.getAvailItem(this.disEmail) && this.getAvailItem(this.disFirstName) && this.getAvailItem(this.disLastName) && this.getAvailItem(this.disPostal) && this.getAvailItem(this.disState) && this.disUniqueCtrl.valid && this.disValue > 0) {
           return true;
         } else {
           return false;
@@ -973,39 +1039,111 @@ export class EscrowCreatePage {
   }
 
   selectCountry() {
-    if (this.selCountry == "United State") {
-      this.uniquPlace = "Social Security Number";
-    }
-    else if (this.selCountry == "Australia") {
-      this.uniquPlace = "Tax File Number";
-    }
-    else {
-      this.uniquPlace = "Unique Field";
+    // if (this.selCountry == "United State") {
+    //   this.uniquPlace = "Social Security Number";
+    // }
+    // else if (this.selCountry == "Australia") {
+    //   this.uniquPlace = "Tax File Number";
+    // }
+    // else {
+    //   this.uniquPlace = "Unique Field";
+    // }
+    if (this.selCountry == "") {
+      this.selUniquePlace = "Unique Field";
+    } else {
+      for (let list of this.totalList) {
+        if (this.selCountry == list.uc_country) {
+          this.selUniquePlace = list.uc_field_name;
+          this.selUniqueLength = list.uc_characters;
+          if (list.uc_letters == "0") {
+            this.selUniqueType = "number";
+
+            this.selUniqueCtrl.setValidators(
+              Validators.pattern("[0-9]{" + list.uc_characters + "}$")
+            );
+          } else {
+            this.selUniqueType = "text";
+
+            this.selUniqueCtrl.setValidators(
+              Validators.pattern("[A-Za-z0-9]{" + list.uc_characters + "}$")
+            );
+          }
+
+        }
+      }
     }
   }
 
 
   selectBuyCountry() {
-    if (this.buyCountry == "United State") {
-      this.uniquBuyPlace = "Social Security Number";
-    }
-    else if (this.buyCountry == "Australia") {
-      this.uniquBuyPlace = "Tax File Number";
-    }
-    else {
-      this.uniquBuyPlace = "Unique Field";
+    // if (this.buyCountry == "United State") {
+    //   this.uniquBuyPlace = "Social Security Number";
+    // }
+    // else if (this.buyCountry == "Australia") {
+    //   this.uniquBuyPlace = "Tax File Number";
+    // }
+    // else {
+    //   this.uniquBuyPlace = "Unique Field";
+    // }
+    if (this.buyCountry == "") {
+      this.buyUniquePlace = "Unique Field";
+    } else {
+      for (let list of this.totalList) {
+        if (this.buyCountry == list.uc_country) {
+          this.buyUniquePlace = list.uc_field_name;
+          this.buyUniqueLength = list.uc_characters;
+          if (list.uc_letters == "0") {
+            this.buyUniqueType = "number";
+
+            this.buyUniqueCtrl.setValidators(
+              Validators.pattern("[0-9]{" + list.uc_characters + "}$")
+            );
+          } else {
+            this.buyUniqueType = "text";
+
+            this.buyUniqueCtrl.setValidators(
+              Validators.pattern("[A-Za-z0-9]{" + list.uc_characters + "}$")
+            );
+          }
+
+        }
+      }
     }
   }
 
   selectDisCountry() {
-    if (this.disCountry == "United State") {
-      this.uniquDisPlace = "Social Security Number";
-    }
-    else if (this.disCountry == "Australia") {
-      this.uniquDisPlace = "Tax File Number";
-    }
-    else {
-      this.uniquDisPlace = "Unique Field";
+    // if (this.disCountry == "United State") {
+    //   this.uniquDisPlace = "Social Security Number";
+    // }
+    // else if (this.disCountry == "Australia") {
+    //   this.uniquDisPlace = "Tax File Number";
+    // }
+    // else {
+    //   this.uniquDisPlace = "Unique Field";
+    // }
+    if (this.disCountry == "") {
+      this.disUniquePlace = "Unique Field";
+    } else {
+      for (let list of this.totalList) {
+        if (this.disCountry == list.uc_country) {
+          this.disUniquePlace = list.uc_field_name;
+          this.disUniqueLength = list.uc_characters;
+          if (list.uc_letters == "0") {
+            this.disUniqueType = "number";
+
+            this.disUniqueCtrl.setValidators(
+              Validators.pattern("[0-9]{" + list.uc_characters + "}$")
+            );
+          } else {
+            this.disUniqueType = "text";
+
+            this.disUniqueCtrl.setValidators(
+              Validators.pattern("[A-Za-z0-9]{" + list.uc_characters + "}$")
+            );
+          }
+
+        }
+      }
     }
   }
 }

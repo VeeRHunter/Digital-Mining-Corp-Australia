@@ -10,17 +10,17 @@ page-confirm-modal {
             background-color: white;
             overflow: auto;
             position: relative;
-            .close-modal{
+            .close-modal {
                 position: fixed;
                 width: 80%;
-                ion-icon{
+                ion-icon {
                     color: black;
                     margin-left: auto !important;
                     margin-right: 15px !important;
                     margin-top: 10px !important;
                 }
             }
-            .logo-row{
+            .logo-row {
                 margin-top: 45px;
             }
             .pin-text {
